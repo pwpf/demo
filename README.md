@@ -1,3 +1,17 @@
+### Installation
+
+Release
+
+    composer create-project pwpf/demo project_name
+    ./pwpf-generator.sh
+
+Or dev
+
+    composer create-project pwpf/demo --stability=dev project_name_dev
+    ./pwpf-generator.sh
+
+
+
 # MVC Plugin Boilerplate for WordPress
 
 WordPress being Event driven system, it is difficult to follow MVC Design Pattern while creating a WordPress Plugin.
