@@ -3,11 +3,13 @@
 Release
 
     composer create-project pwpf/demo project_name
+    cd project_name
     ./pwpf-generator.sh
 
 Or dev
 
     composer create-project pwpf/demo --stability=dev project_name_dev
+    cd project_name_dev
     ./pwpf-generator.sh
 
 
