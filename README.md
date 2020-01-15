@@ -17,9 +17,7 @@ Or dev
 # MVC Plugin Boilerplate for WordPress
 
 WordPress being Event driven system, it is difficult to follow MVC Design Pattern while creating a WordPress Plugin.
-
 This project aims to help plugin developers achieve MVC pattern in their coding.
-
 If you are new to the term MVC and have never worked with MVC architecture before, I would highly recommend going through this course: https://www.udemy.com/php-mvc-from-scratch/
 
 ## Why?
@@ -34,7 +32,7 @@ Because this project is meant to be a boilerplate, it has only those features wh
 ## Architecture
 Here is a bird eye's view at the architecture
 
-![MVC Architecture](https://raw.githubusercontent.com/sumitpore/repo-assets/master/mvc-architecture.png)
+![MVC Architecture](https://raw.githubusercontent.com/pwpf/demo/master/docs/assets/mvc-architecture.png)
 
 ## Installation
 
@@ -48,17 +46,9 @@ The Boilerplate can be installed directly into your plugins folder "as-is". You 
 
 It's safe to activate the plugin at this point. Because the Boilerplate has no real functionality there will be no menu items, meta boxes, or custom post types added until you write the code.
 
-If you don't want to do search & replace manually, you can download the generator script & execute it.
-```bash
-wget -O boilerplate-generator.sh https://raw.githubusercontent.com/sumitpore/mvc-plugin-boilerplate-for-wordpress/master/boilerplate-generator.sh && bash boilerplate-generator.sh
-```
-
 ## Getting Started
 
 We'll try to create a shortcode that prints 10 posts that will help you understand how this boilerplate works. The guide assumes that you have gone through Installation steps and created `Example Me` Plugin.
-
-If you prefer watching videos over reading, then here is a [playlist to get started.](https://www.youtube.com/watch?v=vxR6X8nFbXs&list=PLynzWOMAmxrOtGo6ptsdOaxYoANjOSV8h)
-[![YouTube Playlist on Writing a WordPress Plugin in MVC Way](https://raw.githubusercontent.com/sumitpore/repo-assets/master/mvc-playlist-preview-image.png)](https://www.youtube.com/watch?v=vxR6X8nFbXs&list=PLynzWOMAmxrOtGo6ptsdOaxYoANjOSV8h)
 
 ### 1. Writing your first Router 📡
 Routes can be defined inside `routes.php` file. Here is how a route can be defined for our example
@@ -66,17 +56,17 @@ Routes can be defined inside `routes.php` file. Here is how a route can be defin
 
 // Full Class Name with Namespace
 $router
-    ->register_route_of_type( ROUTE_TYPE::FRONTEND )
-    ->with_controller( 'Example_Me\App\Controllers\Frontend\Print_Posts_Shortcode@register_shortcode' )
-    ->with_model( 'Example_Me\App\Models\Frontend\Print_Posts_Shortcode' );
+    ->registerRouteOfType( RouteType::FRONTEND )
+    ->withController( 'Example_Me\App\Controllers\Frontend\Print_Posts_Shortcode@registerShortcode' )
+    ->withModel( 'Example_Me\App\Models\Frontend\Print_Posts_Shortcode' );
 
 // ------------- OR --------------------
 
 // Class Names Without specifying Namespaces explicitly. Boilerplate will automatically figure out the class based on the Route Type.
 $router
-    ->register_route_of_type( ROUTE_TYPE::FRONTEND )
-    ->with_controller( 'Print_Posts_Shortcode@register_shortcode' )
-    ->with_model( 'Print_Posts_Shortcode' );
+    ->registerRouteOfType( RouteType::FRONTEND )
+    ->withController( 'Print_Posts_Shortcode@registerShortcode' )
+    ->withModel( 'Print_Posts_Shortcode' );
 
 ```
 > It is highly recommended to go through [`routes.php`](https://github.com/sumitpore/wordpress-mvc-plugin-boilerplate/blob/master/plugin-name/routes.php). You will get to know list of all available route types & examples in that file.
@@ -110,8 +100,8 @@ find add_action/add_filter is register_hook_callbacks method.
 > NOTE: If you create a constructor inside a controller extending `Base_Controller`, then make sure you call `init` method inside that constructor. That means your custom constructors need to have this line `$this->init( $model, $view );` to set `Model` & `View` for your controller object.
 
 <details>
-	<summary><b>SHOW CONTROLLER EXAMPLE CODE</b></summary>
-	Here is how this file would look for our example
+    <summary><b>SHOW CONTROLLER EXAMPLE CODE</b></summary>
+    Here is how this file would look for our example
 
 ```php
 <?php
@@ -120,47 +110,47 @@ find add_action/add_filter is register_hook_callbacks method.
 namespace Example_Me\App\Controllers\Frontend;
 
 if ( ! class_exists( __NAMESPACE__ . '\\' . 'Print_Posts_Shortcode' ) ) {
-	/**
-	 * Class that handles `example_me_print_posts` shortcode
-	 *
-	 * @since      1.0.0
-	 * @package    Example_Me
-	 * @subpackage Example_Me/Controllers/Frontend
-	 */
-	class Print_Posts_Shortcode extends Base_Controller {
+    /**
+     * Class that handles `example_me_print_posts` shortcode
+     *
+     * @since      1.0.0
+     * @package    Example_Me
+     * @subpackage Example_Me/Controllers/Frontend
+     */
+    class Print_Posts_Shortcode extends Base_Controller {
 
-		/**
-		 * Registers the `example_me_print_posts` shortcode
-		 *
-		 * @return void
-		 * @since 1.0.0
-		 */
-		public function register_shortcode() {
-			add_shortcode( 'example_me_print_posts', array( $this, 'print_posts_callback' ) );
-		}
+        /**
+         * Registers the `example_me_print_posts` shortcode
+         *
+         * @return void
+         * @since 1.0.0
+         */
+        public function registerShortcode() {
+            add_shortcode( 'example_me_print_posts', array( $this, 'print_posts_callback' ) );
+        }
 
-		/**
-		 * @ignore Blank Method
-		 */
-		protected function register_hook_callbacks(){}
+        /**
+         * @ignore Blank Method
+         */
+        protected function register_hook_callbacks(){}
 
-		/**
-		 * Callback to handle `example_me_print_posts` shortcode
-		 *
-		 * @return void
-		 * @since 1.0.0
-		 */
-		public function print_posts_callback( $atts ) {
-			return 	$this->get_view()->render_template(
-				'frontend/print-posts-shortcode.php',
-				[
-					'fetched_posts'	=>	$this->get_model()->get_posts_for_shortcode( 'example_me_print_posts', $atts )
-				]
-			);
+        /**
+         * Callback to handle `example_me_print_posts` shortcode
+         *
+         * @return void
+         * @since 1.0.0
+         */
+        public function print_posts_callback( $atts ) {
+            return     $this->get_view()->render_template(
+                'frontend/print-posts-shortcode.php',
+                [
+                    'fetched_posts'    =>    $this->get_model()->get_posts_for_shortcode( 'example_me_print_posts', $atts )
+                ]
+            );
 
-		}
+        }
 
-	}
+    }
 }
 
 ```
@@ -169,12 +159,12 @@ if ( ! class_exists( __NAMESPACE__ . '\\' . 'Print_Posts_Shortcode' ) ) {
 
 ### 3. Writing your first Model ![DNA](https://raw.githubusercontent.com/sumitpore/repo-assets/master/DNA.png)
 
-All models should extend `Base_Model` class.
+All models should extend `AbstractModel` class.
 
 * If it is Dashboard (admin) related model, then it should extend
-`Plugin_Name\App\Models\Admin\Base_Model`.
+`Plugin_Name\App\Models\Admin\AbstractAdminModel`.
 * If it is Frontend related model, then it should extend
-`Plugin_Name\App\Models\Frontend\Base_Model`.
+`Plugin_Name\App\Models\Frontend\AbstractFrontendModel`.
 
 You may decide whether to create `register_hook_callbacks` method inside your model or not. It is not an abstract method in `Base_Model` If you want to write any add_action/add_filter, then that should ideally go inside this method. (I would suggest to place all add_action & add_filter calls inside `register_hook_callbacks` of the Controller class. It will show you all add_actions & add_filter in one glance but decision is yours! You should do what fits right in your situation.)
 
@@ -182,10 +172,10 @@ Again `register_hook_callbacks` is not called automatically. If you feel hooks/f
 callbacks should be registered when the new instance of the class
 is created, then call this method inside the constructor of your model.
 
-`@` is NOT supported in `with_model` method of Router class, however, `@` is supported in `with_just_model` method of the Router class. If you are confused, what these statements mean? Go through [`routes.php`](https://github.com/sumitpore/wordpress-mvc-plugin-boilerplate/blob/master/plugin-name/routes.php). It contains variety of examples.
+`@` is NOT supported in `withModel` method of Router class, however, `@` is supported in `with_just_model` method of the Router class. If you are confused, what these statements mean? Go through [`routes.php`](https://github.com/sumitpore/wordpress-mvc-plugin-boilerplate/blob/master/plugin-name/routes.php). It contains variety of examples.
 
 <details>
-	<summary><b>SHOW MODEL EXAMPLE CODE</b></summary>
+    <summary><b>SHOW MODEL EXAMPLE CODE</b></summary>
 
 Create a file `example-me/app/models/frontend/class-print-posts-shortcode.php` because we have to create `Example_Me\App\Models\Frontend\Print_Posts_Shortcode` class.
 
@@ -198,97 +188,59 @@ Here is how this file would look for our example
 namespace Example_Me\App\Models\Frontend;
 
 if ( ! class_exists( __NAMESPACE__ . '\\' . 'Print_Posts_Shortcode' ) ) {
-	/**
-	 * Class to handle data related operations of `example_me_print_posts` shortcode
-	 *
-	 * @since      1.0.0
-	 * @package    Example_Me
-	 * @subpackage Example_Me/Models/Frontend
-	 */
-	class Print_Posts_Shortcode extends Base_Model {
-		/**
-		 * Fetches posts from database
-		 *
-		 * @param string $shortcode Shortcode for which posts should be fetched
-		 * @param array $atts Arguments passed to shortcode
-		 * @return \WP_Query WP_Query Object
-		 */
-		public function get_posts_for_shortcode( $shortcode, $atts ) {
-			$atts = shortcode_atts(
-				array(
-					'number_of_posts' => '10',
-				), $atts, $shortcode
-			);
+    /**
+     * Class to handle data related operations of `example_me_print_posts` shortcode
+     *
+     * @since      1.0.0
+     * @package    Example_Me
+     * @subpackage Example_Me/Models/Frontend
+     */
+    class Print_Posts_Shortcode extends Example_Me\App\Models\AbstratModel {
+        /**
+         * Fetches posts from database
+         *
+         * @param string $shortcode Shortcode for which posts should be fetched
+         * @param array $atts Arguments passed to shortcode
+         * @return \WP_Query WP_Query Object
+         */
+        public function get_posts_for_shortcode( $shortcode, $atts ) {
+            $atts = shortcode_atts(
+                array(
+                    'number_of_posts' => '10',
+                ), $atts, $shortcode
+            );
 
-			$args = array(
-				'post_type' => 'post',
-				'posts_per_page' => is_int( $atts['number_of_posts'] ) ? $atts['number_of_posts'] : 10,
-			);
+            $args = array(
+                'post_type' => 'post',
+                'posts_per_page' => is_int( $atts['number_of_posts'] ) ? $atts['number_of_posts'] : 10,
+            );
 
-			return new \WP_Query( $args );
-		}
-	}
+            return new \WP_Query( $args );
+        }
+    }
 }
 
 ```
 </details>
 
 ### 4. Writing a View 👸
-In our example, we did not have to create a separate View Class (Hint: we did not call `with_view` method in the route.). In the controller itself we are calling a `render_template` method of base `View` class. 
 
-However, if you are going to deal with partial views, it is recommended to create a separate class that extends `View` class & that class will call templates for you.
-
-It gives us another advantage — the controller does not get tied to template file directly & thus allowing us to reduce the coupling.
-
-<details>
-	<summary><b>SHOW VIEW EXAMPLE CODE</b></summary>
-
-If we had created a separate class for the view, then it would have looked like this
+In app/controllers/AbstractController.php you must defined your View config
 
 ```php
-<?php
-// First we would need to change the route.
+<?php 
 
-// file: routes.php
-$router
-	->register_route_of_type( ROUTE_TYPE::FRONTEND )
-	->with_controller( 'Print_Posts_Shortcode@register_shortcode' )
-	->with_model( 'Print_Posts_Shortcode' )
-	->with_view( 'Print_Posts_Shortcode' );
+    /**  */
 
+    public function __construct(Model $model, $view = false)
+    {
+        $config = [
+            'appName' => 'Plugin_Name'
+        ];
 
-
-// file: `example-me/app/views/frontend/class-print-posts-shortcode.php`
-
-namespace Example_Me\App\Views\Frontend;
-
-use \Example_Me\Core\View;
-use \Example_Me as Example_Me;
-
-if ( ! class_exists( __NAMESPACE__ . '\\' . 'Print_Posts_Shortcode' ) ) {
-	/**
-	 * Class Responsibile for rendering the view of `example_me_print_posts` shortcode
-	 *
-	 * @since      1.0.0
-	 * @package    Example_Me
-	 * @subpackage Example_Me/Views/Frontend
-	 */
-	class Print_Posts_Shortcode extends View {
-		/**
-		 * Method that prints html for the `example_me_print_posts` shortcode
-		 *
-		 * @param array $args Arguments passed by controller's get_posts_for_shortcode method.
-		 * @return void
-		 */
-		public function shortcode_html( $args ){
-			return 	$this->render_template(
-				'frontend/print-posts-shortcode.php',
-				$args
-			);
-		}
-
-	}
-}
+        $view = new View($config);
+        parent::__construct($model, $view);
+    }
 
 ```
 </details>
@@ -301,7 +253,7 @@ A template file can be called by invoking `render_template` method on any `View`
 Template files are created inside `app/templates/` folder.
 
 <details>
-	<summary><b>SHOW TEMPLATE EXAMPLE CODE</b></summary>
+    <summary><b>SHOW TEMPLATE EXAMPLE CODE</b></summary>
 
 So the complete location of template file in our example is `example-me/app/templates/frontend/print-posts-shortcode.php`
 
@@ -313,18 +265,18 @@ This is how it would look
 
 <?php if ( $fetched_posts->have_posts() ) : ?>
 
-	<!-- the loop -->
-	<?php
-	while ( $fetched_posts->have_posts() ) : ?>
-		<?php $fetched_posts->the_post(); ?>
-		<h2><?php the_title(); ?></h2>
-	<?php endwhile; ?>
-	<!-- end of the loop -->
+    <!-- the loop -->
+    <?php
+    while ( $fetched_posts->have_posts() ) : ?>
+        <?php $fetched_posts->the_post(); ?>
+        <h2><?php the_title(); ?></h2>
+    <?php endwhile; ?>
+    <!-- end of the loop -->
 
-	<?php wp_reset_postdata(); ?>
+    <?php wp_reset_postdata(); ?>
 
 <?php else : ?>
-	<p><?php esc_html_e( 'Sorry, no posts matched your criteria.' ); ?></p>
+    <p><?php esc_html_e( 'Sorry, no posts matched your criteria.' ); ?></p>
 <?php endif; ?>
 ```
 </details>
@@ -352,40 +304,30 @@ Activation, Deactivation & Uninstall procedures of your plugin go into `Plugin_N
 ### 8. Folder Structure 📁
 | Folder Name | Description |
 | --- | --- |
-| `plugin-name/app` | Functionality shared between the models, controllers and views resides here. Almost everything you write will go into this folder. |
-| `plugin-name/app/models` | The Model component corresponds to all the data-related logic that the user works with. This can represent either the data that is being transferred between the View and Controller components or any other business logic-related data. ( It represents data objects, such as settings, values stored on the database, etc...) |
-| `plugin-name/app/models/admin` | Represents the admin side of the models.
-| `plugin-name/app/models/frontend` | Represents the frontend side of the models.
-| `plugin-name/app/contollers` | Acts as an interface between Model and View components to process all the business logic and incoming requests, manipulate data using the Model component and interact with the Views to render the final output |
-| `plugin-name/app/contollers/admin` | Represents the admin side of the controllers.
-| `plugin-name/app/contollers/frontend` | Represents the frontend side of the controllers.
-| `plugin-name/app/views` | The View component is used for all the UI logic of. It calls required templates.
-| `plugin-name/app/views/admin` | Calls admin side templates
-| `plugin-name/app/views/frontend` | Calls frontend side templates
-| `plugin-name/app/templates` | Represents html code for the feature
-| `plugin-name/app/templates/admin` | Represents html code for admin side features
-| `plugin-name/app/templates/frontend` | Represents html code for frontend side features 
-| `plugin-name/assets` | Stores assets required for plugin
-| `plugin-name/core` | Main MVC Framework
-| `plugin-name/docs` | Represents Docs of the plugin
-| `plugin-name/includes` | Contains main class file of the plugin & i18n class
-| `plugin-name/languages` | All .po, .pot & .mo goes here 
+| `app` | Functionality shared between the models, controllers and views resides here. Almost everything you write will go into this folder. |
+| `app/models` | The Model component corresponds to all the data-related logic that the user works with. This can represent either the data that is being transferred between the View and Controller components or any other business logic-related data. ( It represents data objects, such as settings, values stored on the database, etc...) |
+| `app/models/admin` | Represents the admin side of the models.
+| `app/models/frontend` | Represents the frontend side of the models.
+| `app/contollers` | Acts as an interface between Model and View components to process all the business logic and incoming requests, manipulate data using the Model component and interact with the Views to render the final output |
+| `app/contollers/admin` | Represents the admin side of the controllers.
+| `app/contollers/frontend` | Represents the frontend side of the controllers.
+| `app/views` | The View component is used for all the UI logic of. It calls required templates.
+| `app/views/admin` | Calls admin side templates
+| `app/views/frontend` | Calls frontend side templates
+| `app/templates` | Represents html code for the feature
+| `app/templates/admin` | Represents html code for admin side features
+| `app/templates/frontend` | Represents html code for frontend side features 
+| `assets` | Stores assets required for plugin
+| `core` | Main MVC Framework
+| `docs` | Represents Docs of the plugin
+| `includes` | Contains main class file of the plugin & i18n class
+| `languages` | All .po, .pot & .mo goes here 
 
 ### INSPIRED?
 
 ![Build a Fort](https://raw.githubusercontent.com/sumitpore/repo-assets/master/build-a-fort.gif)
 
 If you like this approach of development, star this repository!
-
-## Contents
-
-MVC Plugin Boilerplate for WordPress includes the following files:
-
-* `.gitignore`. Used to exclude certain files from the repository.
-* `README.md`. The file that you’re currently reading.
-* `TODO.md` . Contains list of tasks to be completed in future.
-* `plugin-name` directory that contains the source code - a fully executable WordPress plugin.
-* `boilerplate-generator.sh` Boilerplate Generator
 
 ## Features
 
@@ -407,22 +349,9 @@ MVC Plugin Boilerplate for WordPress uses a variable to store the text domain us
 
 Any of the above tools should provide you with the proper tooling to internationalize the plugin.
 
-## License
-
-MVC Plugin Boilerplate for WordPress is licensed under the GPL v2 or later.
-
-> This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License, version 2, as published by the Free Software Foundation.
-
-> This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-> You should have received a copy of the GNU General Public License along with this program; if not, write to the Free Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
-
-A copy of the license is included in the root of the plugin’s directory. The file is named `LICENSE`.
 
 ## Credits
 
 The `MVC Plugin Boilerplate for WordPress` is built upon the `WordPress Plugin Boilerplate` project forked by [Roger Rodrigo](https://ca.linkedin.com/in/rogerrodrigo). The original `WordPress Plugin Boilerplate` project was started in 2011 by [Tom McFarlin](http://twitter.com/tommcfarlin/) and has since included a number of great contributions. In March of 2015 the project was handed over by Tom to Devin Vinson.
 
 This `MVC Plugin Boilerplate for WordPress` was developed and is being maintained by [Sumit Pore](https://www.linkedin.com/in/sumitpore/).
-
-To show support for the project, Star the repository or [follow me on Twitter](https://twitter.com/sumitpore), and say Hi!
