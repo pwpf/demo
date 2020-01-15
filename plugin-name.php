@@ -20,23 +20,33 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
+use Plugin_Name\Includes\Plugin_Name;
+
+if (!defined('WPINC')) {
 	die;
 }
+/**
+ * Load PSR-4
+ */
+require_once __DIR__ . '/vendor/autoload.php';
 
 /**
  * Creates/Maintains the object of Requirements Checker Class
  *
- * @return \Plugin_Name\Includes\Requirements_Checker
+ * @return \Plugin_Name\Includes\RequirementsChecker
  * @since 1.0.0
  */
-function plugin_requirements_checker() {
+function plugin_requirements_checker()
+{
 	static $requirements_checker = null;
 
-	if ( null === $requirements_checker ) {
-		require_once plugin_dir_path( __FILE__ ) . 'includes/class-requirements-checker.php';
-		$requirements_conf = apply_filters( 'plugin_name_minimum_requirements', include_once( plugin_dir_path( __FILE__ ) . 'requirements-config.php' ) );
-		$requirements_checker = new Plugin_Name\Includes\Requirements_Checker( $requirements_conf );
+	if (null === $requirements_checker) {
+		require_once plugin_dir_path(__FILE__) . 'includes/RequirementsChecker.php';
+		$requirements_conf = apply_filters(
+			'plugin_name_minimum_requirements',
+			include_once(plugin_dir_path(__FILE__) . 'requirementsConfig.php')
+		);
+		$requirements_checker = new \Plugin_Name\Includes\RequirementsChecker($requirements_conf);
 	}
 
 	return $requirements_checker;
@@ -47,15 +57,15 @@ function plugin_requirements_checker() {
  *
  * @since    1.0.0
  */
-function run_plugin_name() {
-
+function run_plugin_name()
+{
 	// If Plugins Requirements are not met.
-	if ( ! plugin_requirements_checker()->requirements_met() ) {
-		add_action( 'admin_notices', array( plugin_requirements_checker(), 'show_requirements_errors' ) );
+	if (!plugin_requirements_checker()->requirements_met()) {
+		add_action('admin_notices', [plugin_requirements_checker(), 'show_requirements_errors']);
 
 		// Deactivate plugin immediately if requirements are not met.
-		require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-		deactivate_plugins( plugin_basename( __FILE__ ) );
+		require_once(ABSPATH . 'wp-admin/includes/plugin.php');
+		deactivate_plugins(plugin_basename(__FILE__));
 
 		return;
 	}
@@ -64,7 +74,7 @@ function run_plugin_name() {
 	 * The core plugin class that is used to define internationalization,
 	 * admin-specific hooks, and frontend-facing site hooks.
 	 */
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-plugin-name.php';
+	require_once plugin_dir_path(__FILE__) . 'includes/class-plugin-name.php';
 
 	/**
 	 * Begins execution of the plugin.
@@ -75,12 +85,12 @@ function run_plugin_name() {
 	 *
 	 * @since    1.0.0
 	 */
-	$router_class_name = apply_filters( 'plugin_name_router_class_name', '\Plugin_Name\Core\Router' );
-	$routes = apply_filters( 'plugin_name_routes_file', plugin_dir_path( __FILE__ ) . 'routes.php' );
-	$GLOBALS['plugin_name'] = new Plugin_Name( $router_class_name, $routes );
+	$router_class_name = apply_filters('plugin_name_router_class_name', '\Plugin_Name\PWPF\Routing\Router');
+	$routes = apply_filters('plugin_name_routes_file', plugin_dir_path(__FILE__) . 'app/config/routes.php');
+	$GLOBALS['plugin_name'] = new Plugin_Name($router_class_name, $routes);
 
-	register_activation_hook( __FILE__, array( new Plugin_Name\App\Activator(), 'activate' ) );
-	register_deactivation_hook( __FILE__, array( new Plugin_Name\App\Deactivator(), 'deactivate' ) );
+	register_activation_hook(__FILE__, [new \Plugin_Name\App\Activator(), 'activate']);
+	register_deactivation_hook(__FILE__, [new \Plugin_Name\App\Deactivator(), 'deactivate']);
 }
 
 run_plugin_name();

@@ -1,6 +1,9 @@
 <?php
+/** @var Router $router */
 
-use Plugin_Name\Core\Route_Type as Route_Type;
+
+use Plugin_Name\PWPF\Routing\Router;
+use Plugin_Name\PWPF\Routing\RouteType as RouteType;
 
 /*
 |---------------------------------------------------------------------------------------------------------
@@ -11,42 +14,42 @@ use Plugin_Name\Core\Route_Type as Route_Type;
 +----------------------------------------------+---------------------------------------------------------+
 | ROUTE TYPE                                   | ROUTE DESCRIPTION                                       |
 +----------------------------------------------+---------------------------------------------------------+
-| ROUTE_TYPE::ANY                              | To be used if model/controller is                       |
+| RouteType::ANY                              | To be used if model/controller is                       |
 |                                              | required on all pages admin as well as frontend         |
 +----------------------------------------------+---------------------------------------------------------+
-| ROUTE_TYPE::ADMIN                            | To be used if model/controller needs to be loaded on    |
+| RouteType::ADMIN                            | To be used if model/controller needs to be loaded on    |
 |                                              | on admin pages only                                     |
 +----------------------------------------------+---------------------------------------------------------+
-| ROUTE_TYPE::ADMIN_WITH_POSSIBLE_AJAX         | To be used if model/controller contains Ajax & needs    |
+| RouteType::ADMIN_WITH_POSSIBLE_AJAX         | To be used if model/controller contains Ajax & needs    |
 |                                              | to be loaded on admin pages only                        |
 +----------------------------------------------+---------------------------------------------------------+
-| ROUTE_TYPE::AJAX                             | To be used if model/controller contains Ajax            |
+| RouteType::AJAX                             | To be used if model/controller contains Ajax            |
 +----------------------------------------------+---------------------------------------------------------+
-| ROUTE_TYPE::CRON                             | To be used if model/controller contains Cron            |
+| RouteType::CRON                             | To be used if model/controller contains Cron            |
 |                                              | functionality                                           |
 +----------------------------------------------+---------------------------------------------------------+
-| ROUTE_TYPE::FRONTEND                         | To be used if model/controller needs to be loaded on    |
+| RouteType::FRONTEND                         | To be used if model/controller needs to be loaded on    |
 |                                              | frontend pages only                                     |
 +----------------------------------------------+---------------------------------------------------------+
-| ROUTE_TYPE::FRONTEND_WITH_POSSIBLE_AJAX      | To be used if model/controller contains Ajax & needs    |
+| RouteType::FRONTEND_WITH_POSSIBLE_AJAX      | To be used if model/controller contains Ajax & needs    |
 |                                              | to be loaded on frontend pages only                     |
 +----------------------------------------------+---------------------------------------------------------+
-| ROUTE_TYPE::LATE_FRONTEND                    | To be used if model/controller needs to be loaded when  |
+| RouteType::LATE_FRONTEND                    | To be used if model/controller needs to be loaded when  |
 |                                              | specific conditions are matched                         |
 +----------------------------------------------+---------------------------------------------------------+
-| ROUTE_TYPE::LATE_FRONTEND_WITH_POSSIBLE_AJAX | To be used if model/controller contains Ajax & needs    |
+| RouteType::LATE_FRONTEND_WITH_POSSIBLE_AJAX | To be used if model/controller contains Ajax & needs    |
 |                                              | to be loaded when specific conditions are matched       |
 +----------------------------------------------+---------------------------------------------------------+
 *
 * Possible Routes Combinations :-
 *
-* 1. $router->register_route_of_type(...)->with_controller(...)->with_model(...)->with_view(...);
-* 2. $router->register_route_of_type(...)->with_controller(...)->with_model(...);
-* 3. $router->register_route_of_type(...)->with_controller(...)->with_view(...);
-* 4. $router->register_route_of_type(...)->with_controller(...);
-* 5. $router->register_route_of_type(...)->with_just_model(...);
+* 1. $router->registerRouteOfType(...)->with_controller(...)->withModel(...)->withView(...);
+* 2. $router->registerRouteOfType(...)->with_controller(...)->withModel(...);
+* 3. $router->registerRouteOfType(...)->with_controller(...)->withView(...);
+* 4. $router->registerRouteOfType(...)->with_controller(...);
+* 5. $router->registerRouteOfType(...)->with_just_model(...);
 *
-* with_controller, with_model, with_view, with_just_model methods accept either a string or
+* with_controller, withModel, withView, with_just_model methods accept either a string or
 * a callback. But the callback must return respective Controller/Model or View name.
 *
 * with_controlller & with_just_model methods supports '@' in the Controller/Model passed to
@@ -59,10 +62,10 @@ use Plugin_Name\Core\Route_Type as Route_Type;
 | Simple Example - This example creates a admin route (triggered only when it is a dashboard)
 |-------------------------------------------------------------------------------------------
 |	$router
-|		->register_route_of_type( ROUTE_TYPE::ADMIN )
+|		->registerRouteOfType( RouteType::ADMIN )
 |		>with_controller( 'Admin_Settings' ) // Resolved by Router to 'Plugin_Name\App\Controllers\Admin\Admin_Settings'.
-|		->with_model( 'Admin_Settings' ) // Resolved by Router to 'Plugin_Name\App\Models\Admin\Admin_Settings'.
-|		->with_view( 'Admin_Settings' ); // Resolved by Router to 'Plugin_Name\App\Views\Admin\Admin_Settings'.
+|		->withModel( 'Admin_Settings' ) // Resolved by Router to 'Plugin_Name\App\Models\Admin\Admin_Settings'.
+|		->withView( 'Admin_Settings' ); // Resolved by Router to 'Plugin_Name\App\Views\Admin\Admin_Settings'.
 |-------------------------------------------------------------------------------------------
 */
 
@@ -71,10 +74,10 @@ use Plugin_Name\Core\Route_Type as Route_Type;
 | Routes with Full Class Names Example. Above route could also be written as :-
 |-------------------------------------------------------------------------------------------
 |	$router
-|		->register_route_of_type( ROUTE_TYPE::ADMIN )
-|		->with_controller( 'Plugin_Name\App\Controllers\Admin\Admin_Settings' )
-|		->with_model( 'Plugin_Name\App\Models\Admin\Admin_Settings' )
-|		->with_view( 'Plugin_Name\App\Views\Admin\Admin_Settings' );
+|		->registerRouteOfType( RouteType::ADMIN )
+|		->withController( 'Plugin_Name\App\Controllers\Admin\Admin_Settings' )
+|		->withModel( 'Plugin_Name\App\Models\Admin\Admin_Settings' )
+|		->withView( 'Plugin_Name\App\Views\Admin\Admin_Settings' );
 |-------------------------------------------------------------------------------------------
 */
 
@@ -82,13 +85,13 @@ use Plugin_Name\Core\Route_Type as Route_Type;
 |-------------------------------------------------------------------------------------------
 | '@' Symbol Example :-
 |
-|  Again, @ is supported in with_controller & with_just_model methods only.
+|  Again, @ is supported in withController & with_just_model methods only.
 |-------------------------------------------------------------------------------------------
 |	$router
-|		->register_route_of_type( ROUTE_TYPE::LATE_FRONTEND )
-|		->with_controller( 'Sample_Shortcode@register_shortcode' )
-|		->with_model( 'Sample_Shortcode' )
-|		->with_view( 'Sample_Shortcode' );
+|		->registerRouteOfType( RouteType::LATE_FRONTEND )
+|		->withController( 'Sample_Shortcode@register_shortcode' )
+|		->withModel( 'Sample_Shortcode' )
+|		->withView( 'Sample_Shortcode' );
 |-------------------------------------------------------------------------------------------
 */
 
@@ -96,11 +99,11 @@ use Plugin_Name\Core\Route_Type as Route_Type;
 |-------------------------------------------------------------------------------------------
 | Example of Loading controller if conditions match. Late Frontend Routes are triggerred on
 | `wp` hook. Therefore, you should ideally be able to access template related functions
-| in the callback passed to `with_controller` method below
+| in the callback passed to `withController` method below
 |-------------------------------------------------------------------------------------------
 |	$router
-|		->register_route_of_type( ROUTE_TYPE::LATE_FRONTEND )
-|		->with_controller(
+|		->registerRouteOfType( RouteType::LATE_FRONTEND )
+|		->withController(
 |			function() {
 |
 |				if ( get_the_ID() == '3367' ) {
@@ -110,7 +113,7 @@ use Plugin_Name\Core\Route_Type as Route_Type;
 |				return false;
 |			}
 |		)
-|		->with_view( 'Sample_Shortcode' );
+|		->withView( 'Sample_Shortcode' );
 |-------------------------------------------------------------------------------------------
 */
 
@@ -123,7 +126,7 @@ use Plugin_Name\Core\Route_Type as Route_Type;
 | to work at data layer but there is nothing to print on the screen.
 |-------------------------------------------------------------------------------------------
 |	$router
-|		->register_route_of_type( ROUTE_TYPE::ADMIN )
+|		->registerRouteOfType( RouteType::ADMIN )
 |		->with_just_model('Plugin_Name_Model_Admin_Settings');
 |-------------------------------------------------------------------------------------------
 */
@@ -132,7 +135,7 @@ use Plugin_Name\Core\Route_Type as Route_Type;
 
 // Route for Settings Page.
 $router
-	->register_route_of_type( ROUTE_TYPE::ADMIN )
-	->with_controller( 'Admin_Settings@register_hook_callbacks' ) // Resolved by Router to 'Plugin_Name\App\Controllers\Admin\Admin_Settings'.
-	->with_model( 'Admin_Settings' ) // Resolved by Router to 'Plugin_Name\App\Models\Admin\Admin_Settings'.
-	->with_view( 'Admin_Settings' ); // Resolved by Router to 'Plugin_Name\App\Views\Admin\Admin_Settings'.
+	->registerRouteOfType( RouteType::ADMIN )
+	->withController( 'Admin_Settings@register_hook_callbacks' ) // Resolved by Router to 'Plugin_Name\App\Controllers\Admin\Admin_Settings'.
+	->withModel( 'Admin_Settings' ) // Resolved by Router to 'Plugin_Name\App\Models\Admin\Admin_Settings'.
+	->withView( 'Admin_Settings' ); // Resolved by Router to 'Plugin_Name\App\Views\Admin\Admin_Settings'.
