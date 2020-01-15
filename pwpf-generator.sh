@@ -1,27 +1,9 @@
 #!/bin/bash
 
-#   MVC Plugin Boilerplate Generator - Generates the base plugin out of `MVC Plugin Boilerplate for WordPress`
-#    Copyright (C) <2019>  <Sumit P>
-
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    any later version.
-
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-
-#    You should have received a copy of the GNU General Public License
-#    along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.html>.
-
 take_consent_to_execute_script(){
-    echo '           MVC Plugin Boilerplate Generator -  Copyright (C) <2019>  <Sumit P>   ';
-    echo '           This program is licensed under GPLv3 & comes with ABSOLUTELY NO WARRANTY;'
-    echo '           Detalied copy of GNU General Public License can be found here: https://www.gnu.org/licenses/gpl-3.0.html'
+    echo '           PWPF Generator';
     echo ''
-    read -p 'Do you accept the license terms? [y/n]:' AGREE_TO_PROCEED
+    read -p 'Start replace name? [y/n]:' AGREE_TO_PROCEED
     if [ -z "$AGREE_TO_PROCEED" ] || [ "$AGREE_TO_PROCEED" != "y" ] ; then
         echo 'Execution Aborted!'
         exit 1
@@ -30,9 +12,7 @@ take_consent_to_execute_script(){
 }
 
 set_defaults_for_script(){
-    GIT_REPO_DIR='mvc-plugin-boilerplate-for-wordpress'
-    GENERATED_PLUGIN_DIR='generated-plugin'
-    BOILERPLATE_PLUGIN_NAME='MVC WordPress Plugin Boilerplate'
+    PWPF_PLUGIN_NAME='PWPF'
     PLUGIN_NAME="Plugin Name"
 }
 
@@ -51,24 +31,6 @@ create_dir(){
         exit 1
     fi
 
-}
-
-download_original_plugin(){
-    echo 'Downloading vanilla boilerplate from Git'
-    git clone --single-branch --branch dev https://github.com/sumitpore/mvc-plugin-boilerplate-for-wordpress.git $GIT_REPO_DIR > /dev/null 2>&1
-    echo 'Boilerplate Download Complete'
-}
-
-bring_plugin_outside(){
-    mv $GIT_REPO_DIR/plugin-name $GENERATED_PLUGIN_DIR/
-}
-
-delete_git_repo_dir(){
-    rm -rf $GIT_REPO_DIR
-}
-
-switch_to_generated_plugin_dir(){
-    cd $GENERATED_PLUGIN_DIR
 }
 
 set_plugin_slug(){
@@ -91,14 +53,14 @@ replace_text_in_files(){
     if [[ ! -z "$REPLACEMENT_TEXT" ]]; then
         find . -type f -exec sed -i -e 's/'"$1"'/'"$REPLACEMENT_TEXT"'/g' {} +
 
-        # If we are replacing `Plugin Name`, then we have to revert the replacement 
+        # If we are replacing `Plugin Name`, then we have to revert the replacement
         # done in Plugin File header. Otherwise, WP won't be able to recognize the
         # plugin
         if [ "$1" == "Plugin Name" ]; then
             sed -i -e 's/'"$REPLACEMENT_TEXT:"'/'"$1:"'/g' plugin-name/plugin-name.php
 
             # Set Plugin Name
-            sed -i -e 's/'"$BOILERPLATE_PLUGIN_NAME"'/'"$REPLACEMENT_TEXT"'/g' plugin-name/plugin-name.php
+            sed -i -e 's/'"$PWPF_PLUGIN_NAME"'/'"$REPLACEMENT_TEXT"'/g' plugin-name/plugin-name.php
 
             # Set Plugin Name variable
             PLUGIN_NAME=$REPLACEMENT_TEXT
@@ -121,18 +83,12 @@ rename_files(){
         find . -type f -name "*$1*" | while read FILE ; do
             newfile="$(echo ${FILE} |sed -e 's/'"$1"'/'"$2"'/')" ;
             mv "${FILE}" "${newfile}" ;
-        done 
+        done
     fi
 }
 
 take_consent_to_execute_script
 set_defaults_for_script
-create_dir $GENERATED_PLUGIN_DIR
-create_dir $GIT_REPO_DIR
-download_original_plugin
-bring_plugin_outside
-delete_git_repo_dir
-switch_to_generated_plugin_dir
 
 echo ''
 
