@@ -5,14 +5,14 @@ Release
     composer create-project pwpf/demo project_name
     cd project_name
     ./pwpf-generator.sh
+    composer dump-autoload
 
 Or dev
 
     composer create-project pwpf/demo --stability=dev project_name_dev
     cd project_name_dev
     ./pwpf-generator.sh
-
-
+    composer dump-autoload
 
 # MVC Plugin Boilerplate for WordPress
 

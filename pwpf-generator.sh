@@ -75,7 +75,7 @@ replace_text_in_files(){
 
 rename_plugin_folder(){
     mv 'plugin-name.php' $PLUGIN_SLUG
-    mv 'include/Plugin_Name.php' $PLUGIN_SLUG
+    mv 'includes/Plugin_Name.php' $PLUGIN_SLUG
 }
 
 rename_files(){
