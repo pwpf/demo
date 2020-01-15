@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 take_consent_to_execute_script(){
     echo '           PWPF Generator';
