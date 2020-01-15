@@ -6,6 +6,7 @@
             "email": "slaszka@gmail.com"
         }
     ],
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Plugin_Name\\App\\": "app/",
