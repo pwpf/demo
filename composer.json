@@ -1,0 +1,44 @@
+{
+    "name": "pwpf/demo",
+    "authors": [
+        {
+            "name": "Sławomir Kaleta",
+            "email": "slaszka@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Plugin_Name\\App\\": "app/",
+            "Plugin_Name\\": ""
+        },
+        "classmap": [
+            "app",
+            "includes",
+            "vendor_prefixed/"
+        ]
+    },
+    "require": {
+    },
+    "require-dev": {
+        "pwpf/pwpf": "dev-master",
+        "humbug/php-scoper": "^0.12.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "prefix-dependencies": [
+            "composer prefix-pwpf",
+            "touch ./vendor_prefixed/dependencies-prefixed.txt",
+            "composer du"
+        ],
+        "prefix-pwpf": [
+            "php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=Plugin_Name --output-dir=./vendor_prefixed/pwpf --config=config/php-scoper/pwpf.inc.php --force --quiet"
+        ],
+        "post-install-cmd": [
+            "Plugin_Name\\OverloadClass::prefixDependencies"
+        ],
+        "post-update-cmd": [
+            "Plugin_Name\\OverloadClass::prefixDependencies"
+        ]
+    }
+}
