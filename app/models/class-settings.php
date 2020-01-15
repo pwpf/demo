@@ -2,7 +2,7 @@
 namespace Plugin_Name\App\Models;
 
 use Plugin_Name as Plugin_Name;
-use Plugin_Name\Core\Model;
+use Plugin_Name\PWPF\Model\Model;
 
 if ( ! class_exists( __NAMESPACE__ . '\\' . 'Settings' ) ) {
 	/**

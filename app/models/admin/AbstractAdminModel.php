@@ -1,18 +1,18 @@
 <?php
-namespace Plugin_Name\App\Models\Frontend;
+namespace Plugin_Name\App\Models\Admin;
 
-use Plugin_Name\Core\Model;
-
+use Plugin_Name\PWPF\Model\Model;
 
 if ( ! class_exists( __NAMESPACE__ . '\\' . 'Base_Model' ) ) {
 	/**
-	 * Blueprint for Frontend related Models. All Frontend Models should extend this Base_Model
+	 * Blueprint for Admin related Models. All Admin Models should extend this Base_Model
 	 *
 	 * @since      1.0.0
 	 * @package    Plugin_Name
-	 * @subpackage Plugin_Name/Models/Frontend
+	 * @subpackage Plugin_Name/Models/Admin
 	 */
 	abstract class Base_Model extends Model {
+
 
 		/**
 		 * Register callbacks for actions and filters. Most of your add_action/add_filter
@@ -32,7 +32,7 @@ if ( ! class_exists( __NAMESPACE__ . '\\' . 'Base_Model' ) ) {
 		 * the method.
 		 *
 		 * If I were you, I would define register_hook_callbacks method in the child
-		 * class when it is a 'Model only' route. This is not hard & fast rule, it
+		 * class when it is a 'Model only' route. This is not a rule, it
 		 * is just my opinion when I would define this method.
 		 *
 		 * @since    1.0.0
@@ -40,4 +40,5 @@ if ( ! class_exists( __NAMESPACE__ . '\\' . 'Base_Model' ) ) {
 		protected function register_hook_callbacks(){}
 
 	}
+
 }
