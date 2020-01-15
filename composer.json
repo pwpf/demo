@@ -7,6 +7,7 @@
         }
     ],
     "license": "MIT",
+    "type": "project",
     "autoload": {
         "psr-4": {
             "Plugin_Name\\App\\": "app/",
