@@ -73,11 +73,6 @@ replace_text_in_files(){
     fi
 }
 
-rename_plugin_folder(){
-    mv 'plugin-name.php' $PLUGIN_SLUG
-    mv 'includes/Plugin_Name.php' $PLUGIN_SLUG
-}
-
 rename_files(){
     if [ ! -z "$2" ]; then
         # Rename Files inside a folder
@@ -95,13 +90,12 @@ echo ''
 
 set_plugin_slug
 replace_text_in_files 'plugin-name'
+rename_files 'plugin-name' $PLUGIN_SLUG
 replace_text_in_files 'Plugin Name'
 replace_text_in_files 'plugin_name'
 replace_text_in_files 'Plugin_Name'
-replace_text_in_files 'PLUGIN_NAME_'
-rename_plugin_folder
-rename_files 'plugin-name' $PLUGIN_SLUG
 rename_files 'Plugin_Name' $REPLACEMENT_FOR_PLUGIN_NAME_CLASS
+replace_text_in_files 'PLUGIN_NAME_'
 
 echo ''
 echo -e "\033[0;32mPlugin $PLUGIN_NAME is generated successfully inside $GENERATED_PLUGIN_DIR! \033[39m"
