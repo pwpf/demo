@@ -37,7 +37,7 @@
             "php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=Plugin_Name --output-dir=./vendor_prefixed/pwpf --config=config/php-scoper/pwpf.inc.php --force --quiet"
         ],
         "post-create-project-cmd": [
-          "./boilerplate-generator.sh"
+          "chmod +x pwpf-generator.sh && pwpf-generator.sh"
         ],
         "post-install-cmd": [
             "Plugin_Name\\OverloadClass::prefixDependencies"
