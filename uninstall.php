@@ -28,7 +28,10 @@
 if (!defined('WP_UNINSTALL_PLUGIN')) {
     exit;
 }
-
+/**
+ * Load PSR-4
+ */
+require_once __DIR__ . '/vendor/autoload.php';
 require_once(plugin_dir_path(__FILE__) . 'includes/class-plugin-name.php');
 require_once(plugin_dir_path(__FILE__) . 'app/class-uninstaller.php');
 
