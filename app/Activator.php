@@ -1,4 +1,5 @@
 <?php
+
 namespace Plugin_Name\App;
 
 /**
@@ -6,16 +7,18 @@ namespace Plugin_Name\App;
  *
  * This class defines all code necessary to run during the plugin's activation.
  */
-class Activator {
+class Activator
+{
 
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
-	public function activate() {
-	}
+    /**
+     * Short Description. (use period)
+     *
+     * Long Description.
+     *
+     * @since    1.0.0
+     */
+    public function activate()
+    {
+    }
 
 }

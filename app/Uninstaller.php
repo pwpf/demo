@@ -1,4 +1,5 @@
 <?php
+
 namespace Plugin_Name\App;
 
 /**
@@ -6,16 +7,18 @@ namespace Plugin_Name\App;
  *
  * This class defines all code necessary to run during the plugin's uninstallation.
  */
-class Uninstaller {
+class Uninstaller
+{
 
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
-	public function uninstall() {
-	}
+    /**
+     * Short Description. (use period)
+     *
+     * Long Description.
+     *
+     * @since    1.0.0
+     */
+    public function uninstall()
+    {
+    }
 
 }

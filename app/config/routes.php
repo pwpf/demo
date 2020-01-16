@@ -135,7 +135,9 @@ use Plugin_Name\PWPF\Routing\RouteType as RouteType;
 
 // Route for Settings Page.
 $router
-	->registerRouteOfType( RouteType::ADMIN )
-	->withController( 'Admin_Settings@register_hook_callbacks' ) // Resolved by Router to 'Plugin_Name\App\Controllers\Admin\Admin_Settings'.
-	->withModel( 'Admin_Settings' ) // Resolved by Router to 'Plugin_Name\App\Models\Admin\Admin_Settings'.
-	->withView( 'Admin_Settings' ); // Resolved by Router to 'Plugin_Name\App\Views\Admin\Admin_Settings'.
+    ->registerRouteOfType(RouteType::ADMIN)
+    ->withController(
+        'Admin_Settings@register_hook_callbacks'
+    ) // Resolved by Router to 'Plugin_Name\App\Controllers\Admin\Admin_Settings'.
+    ->withModel('Admin_Settings') // Resolved by Router to 'Plugin_Name\App\Models\Admin\Admin_Settings'.
+    ->withView('Admin_Settings'); // Resolved by Router to 'Plugin_Name\App\Views\Admin\Admin_Settings'.
