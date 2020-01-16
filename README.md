@@ -6,6 +6,7 @@ Release
     cd project_name
     ./pwpf-generator.sh
     composer dump-autoload
+    git config --local core.hooksPath .githooks/
 
 Or dev
 
@@ -13,6 +14,7 @@ Or dev
     cd project_name_dev
     ./pwpf-generator.sh
     composer dump-autoload
+    git config --local core.hooksPath .githooks/
 
 # MVC Plugin Boilerplate for WordPress
 
