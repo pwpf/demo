@@ -28,7 +28,7 @@ if (!class_exists('Dependency_Loader')) {
          *
          * @since    1.0.0
          */
-        public function load_dependencies($class)
+        public function loadDependencies($class)
         {
             $parts = explode('\\', $class);
 
@@ -70,9 +70,9 @@ if (!class_exists('Dependency_Loader')) {
          *
          * @since 1.0.01
          */
-        protected function autoload_dependencies()
+        protected function autoloadDependencies()
         {
-            spl_autoload_register([$this, 'load_dependencies']);
+            spl_autoload_register([$this, 'loadDependencies']);
         }
     }
 }
