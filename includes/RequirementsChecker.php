@@ -27,7 +27,7 @@ class RequirementsChecker
     /**
      * Holds the information whether plugin is compatible with Multisite or not.
      *
-     * @var boolean
+     * @var bool
      * @since 1.0.0
      */
     private $is_multisite_compatible = false;
@@ -77,7 +77,7 @@ class RequirementsChecker
     /**
      * Checks if all plugins requirements are met or not
      *
-     * @return boolean
+     * @return bool
      * @since 1.0.0
      */
     public function requirements_met()
@@ -106,7 +106,7 @@ class RequirementsChecker
     /**
      * Checks if Installed PHP Version is higher than required PHP Version
      *
-     * @return boolean
+     * @return bool
      * @since 1.0.0
      */
     private function is_php_version_dependency_met()
@@ -145,7 +145,7 @@ class RequirementsChecker
     /**
      * Checks if Installed WP Version is higher than required WP Version
      *
-     * @return boolean
+     * @return bool
      * @since 1.0.0
      */
     private function is_wp_version_dependency_met()
@@ -168,7 +168,7 @@ class RequirementsChecker
     /**
      * Checks if Multisite Dependencies are met
      *
-     * @return boolean
+     * @return bool
      * @since 1.0.0
      */
     private function is_wp_multisite_dependency_met()
@@ -188,7 +188,7 @@ class RequirementsChecker
     /**
      * Checks whether all required plugins are installed & active with proper versions.
      *
-     * @return boolean
+     * @return bool
      * @since 1.0.0
      */
     private function are_required_plugins_dependency_met()
@@ -238,7 +238,7 @@ class RequirementsChecker
      * @param string $plugin_name Name of the plugin.
      * @param string $plugin_slug Slug of the plugin.
      *
-     * @return boolean
+     * @return bool
      * @since 1.0.0
      */
     private function is_plugin_active($plugin_name, $plugin_slug)
@@ -264,7 +264,7 @@ class RequirementsChecker
      * @param string $plugin_slug        Plugin Slug.
      * @param string $min_plugin_version Minimum version required of the plugin.
      *
-     * @return boolean
+     * @return bool
      * @since 1.0.0
      */
     private function is_required_plugin_version_active($plugin_name, $plugin_slug, $min_plugin_version)
