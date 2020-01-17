@@ -87,7 +87,7 @@ function run_plugin_name()
      * @since    1.0.0
      */
     $router_class_name = apply_filters('plugin_name_router_class_name', '\Plugin_Name\PWPF\Routing\Router');
-    $routes = apply_filters('plugin_name_routes_file', plugin_dir_path(__FILE__) . 'app/config/routes.php');
+    $routes = apply_filters('plugin_name_routes_file', plugin_dir_path(__FILE__) . 'app/Config/routes.php');
     $GLOBALS['plugin_name'] = new Plugin_Name($router_class_name, $routes);
 
     register_activation_hook(__FILE__, [new Activator(), 'activate']);
