@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugin_Name\App\Models;
+namespace Plugin_Name\App\Model;
 
 use Plugin_Name\Includes\Plugin_Name;
 

@@ -63,7 +63,7 @@ use Plugin_Name\PWPF\Routing\RouteType;
 |-------------------------------------------------------------------------------------------
 |	$router
 |		->registerRouteOfType( RouteType::ADMIN )
-|		>with_controller( 'Admin_Settings' ) // Resolved by Router to 'Plugin_Name\App\Controllers\Admin\Admin_Settings'.
+|		>with_controller( 'Admin_Settings' ) // Resolved by Router to 'Plugin_Name\App\Controller\Admin\Admin_Settings'.
 |		->withModel( 'Admin_Settings' ) // Resolved by Router to 'Plugin_Name\App\Models\Admin\Admin_Settings'.
 |		->withView( 'Admin_Settings' ); // Resolved by Router to 'Plugin_Name\App\Views\Admin\Admin_Settings'.
 |-------------------------------------------------------------------------------------------
@@ -75,7 +75,7 @@ use Plugin_Name\PWPF\Routing\RouteType;
 |-------------------------------------------------------------------------------------------
 |	$router
 |		->registerRouteOfType( RouteType::ADMIN )
-|		->withController( 'Plugin_Name\App\Controllers\Admin\Admin_Settings' )
+|		->withController( 'Plugin_Name\App\Controller\Admin\Admin_Settings' )
 |		->withModel( 'Plugin_Name\App\Models\Admin\Admin_Settings' )
 |		->withView( 'Plugin_Name\App\Views\Admin\Admin_Settings' );
 |-------------------------------------------------------------------------------------------
@@ -138,6 +138,6 @@ $router
     ->registerRouteOfType(RouteType::ADMIN)
     ->withController(
         'Admin_Settings@register_hook_callbacks'
-    ) // Resolved by Router to 'Plugin_Name\App\Controllers\Admin\Admin_Settings'.
+    ) // Resolved by Router to 'Plugin_Name\App\Controller\Admin\Admin_Settings'.
     ->withModel('Admin_Settings') // Resolved by Router to 'Plugin_Name\App\Models\Admin\Admin_Settings'.
     ->withView('Admin_Settings'); // Resolved by Router to 'Plugin_Name\App\Views\Admin\Admin_Settings'.

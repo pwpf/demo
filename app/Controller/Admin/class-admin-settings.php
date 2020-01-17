@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugin_Name\App\Controllers\Admin;
+namespace Plugin_Name\App\Controller\Admin;
 
 use Plugin_Name\Includes\Plugin_Name;
 

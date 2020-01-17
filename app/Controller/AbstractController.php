@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugin_Name\App\Controllers;
+namespace Plugin_Name\App\Controller;
 
 use Plugin_Name\PWPF\Controller\Controller;
 use Plugin_Name\PWPF\Model\Model;

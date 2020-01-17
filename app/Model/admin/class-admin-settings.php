@@ -1,8 +1,8 @@
 <?php
 
-namespace Plugin_Name\App\Models\Admin;
+namespace Plugin_Name\App\Model\Admin;
 
-use Plugin_Name\App\Models\Settings as Settings_Model;
+use Plugin_Name\App\Model\Settings as Settings_Model;
 
 /**
  * Model class that implements Plugin Admin Settings
