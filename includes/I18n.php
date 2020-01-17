@@ -14,7 +14,7 @@ namespace Plugin_Name\Includes;
  * @package    Plugin_Name
  * @subpackage Plugin_Name/includes
  */
-class i18n
+class I18n
 {  // @codingStandardsIgnoreLine.
 
     /**
