@@ -14,7 +14,7 @@ class RequirementsChecker
      * @var string
      * @since 1.0.0
      */
-    private $min_php_version = '5.6';
+    private $minPhpVersion = '7.0';
 
     /**
      * Holds minimum wp version for plugin if not defined in `requirements.php`.
@@ -22,7 +22,7 @@ class RequirementsChecker
      * @var string
      * @since 1.0.0
      */
-    private $min_wp_version = '4.8';
+    private $minWpVersion = '4.8';
 
     /**
      * Holds the information whether plugin is compatible with Multisite or not.
@@ -30,7 +30,7 @@ class RequirementsChecker
      * @var bool
      * @since 1.0.0
      */
-    private $is_multisite_compatible = false;
+    private $isMultisiteCompatible = false;
 
     /**
      * Holds list of required plugins to be installed and active for our plugin to work
@@ -38,7 +38,7 @@ class RequirementsChecker
      * @var array
      * @since 1.0.0
      */
-    private $required_plugins = [];
+    private $requiredPlugins = [];
 
     /**
      * Holds Error messages if dependencies are not met
@@ -51,26 +51,26 @@ class RequirementsChecker
     /**
      * Constructor
      *
-     * @param array $requirements_data Requirements Data mentioned in `requirements.php`.
+     * @param array $requirementsData Requirements Data mentioned in `requirements.php`.
      *
      * @since 1.0.0
      */
-    public function __construct($requirements_data)
+    public function __construct($requirementsData)
     {
-        if (isset($requirements_data['min_php_version'])) {
-            $this->min_php_version = $requirements_data['min_php_version'];
+        if (isset($requirementsData['minPhpVersion'])) {
+            $this->minPhpVersion = $requirementsData['minPhpVersion'];
         }
 
-        if (isset($requirements_data['min_wp_version'])) {
-            $this->min_wp_version = $requirements_data['min_wp_version'];
+        if (isset($requirementsData['minWpVersion'])) {
+            $this->minWpVersion = $requirementsData['minWpVersion'];
         }
 
-        if (isset($requirements_data['is_multisite_compatible'])) {
-            $this->is_multisite_compatible = $requirements_data['is_multisite_compatible'];
+        if (isset($requirementsData['isMultisiteCompatible'])) {
+            $this->isMultisiteCompatible = $requirementsData['isMultisiteCompatible'];
         }
 
-        if (isset($requirements_data['required_plugins'])) {
-            $this->required_plugins = $requirements_data['required_plugins'];
+        if (isset($requirementsData['requiredPlugins'])) {
+            $this->requiredPlugins = $requirementsData['requiredPlugins'];
         }
     }
 
@@ -80,27 +80,27 @@ class RequirementsChecker
      * @return bool
      * @since 1.0.0
      */
-    public function requirements_met()
+    public function requirementsMet()
     {
-        $requirements_met = true;
+        $requirementsMet = true;
 
-        if (!$this->is_php_version_dependency_met()) {
-            $requirements_met = false;
+        if (!$this->isPhpVersionDependencyMet()) {
+            $requirementsMet = false;
         }
 
-        if (!$this->is_wp_version_dependency_met()) {
-            $requirements_met = false;
+        if (!$this->isWpVersionDependencyMet()) {
+            $requirementsMet = false;
         }
 
-        if (!$this->is_wp_multisite_dependency_met()) {
-            $requirements_met = false;
+        if (!$this->isWpMultisiteDependencyMet()) {
+            $requirementsMet = false;
         }
 
-        if (!$this->are_required_plugins_dependency_met()) {
-            $requirements_met = false;
+        if (!$this->areRequiredPluginsDependencyMet()) {
+            $requirementsMet = false;
         }
 
-        return $requirements_met;
+        return $requirementsMet;
     }
 
     /**
@@ -109,16 +109,16 @@ class RequirementsChecker
      * @return bool
      * @since 1.0.0
      */
-    private function is_php_version_dependency_met()
+    private function isPhpVersionDependencyMet()
     {
-        $is_required_php_version_installed = version_compare(PHP_VERSION, $this->min_php_version, '>=');
+        $isRequiredPhpVersionInstalled = version_compare(PHP_VERSION, $this->minPhpVersion, '>=');
 
-        if (1 == $is_required_php_version_installed) {
+        if (1 == $isRequiredPhpVersionInstalled) {
             return true;
         }
 
-        $this->add_error_notice(
-            'PHP ' . $this->min_php_version . '+ is required',
+        $this->addErrorNotice(
+            'PHP ' . $this->minPhpVersion . '+ is required',
             'You\'re running version ' . PHP_VERSION
         );
 
@@ -128,17 +128,17 @@ class RequirementsChecker
     /**
      * Adds Error message in $errors variable
      *
-     * @param string $error_message          Error Message.
-     * @param string $supportive_information Supportive Information to be displayed along with Error Message in brackets.
+     * @param string $errorMessage          Error Message.
+     * @param string $supportiveInformation Supportive Information to be displayed along with Error Message in brackets.
      *
      * @return void
      * @since 1.0.0
      */
-    private function add_error_notice($error_message, $supportive_information)
+    private function addErrorNotice($errorMessage, $supportiveInformation)
     {
         $this->errors[] = (object)[
-            'error_message' => $error_message,
-            'supportive_information' => $supportive_information,
+            'error_message' => $errorMessage,
+            'supportive_information' => $supportiveInformation,
         ];
     }
 
@@ -148,18 +148,18 @@ class RequirementsChecker
      * @return bool
      * @since 1.0.0
      */
-    private function is_wp_version_dependency_met()
+    private function isWpVersionDependencyMet()
     {
-        global $wp_version;
-        $is_required_wp_version_installed = version_compare($wp_version, $this->min_wp_version, '>=');
+        global $wpVersion;
+        $isRequiredWpVersionInstalled = version_compare($wpVersion, $this->minWpVersion, '>=');
 
-        if (1 == $is_required_wp_version_installed) {
+        if (1 == $isRequiredWpVersionInstalled) {
             return true;
         }
 
-        $this->add_error_notice(
-            'WordPress ' . $this->min_wp_version . '+ is required',
-            'You\'re running version ' . $wp_version
+        $this->addErrorNotice(
+            'WordPress ' . $this->minWpVersion . '+ is required',
+            'You\'re running version ' . $wpVersion
         );
 
         return false;
@@ -171,18 +171,18 @@ class RequirementsChecker
      * @return bool
      * @since 1.0.0
      */
-    private function is_wp_multisite_dependency_met()
+    private function isWpMultisiteDependencyMet()
     {
-        $is_wp_multisite_dependency_met = is_multisite() && (false === $this->is_multisite_compatible) ? false : true;
+        $isWpMultisiteDependencyMet = is_multisite() && (false === $this->isMultisiteCompatible) ? false : true;
 
-        if (false == $is_wp_multisite_dependency_met) {
-            $this->add_error_notice(
+        if (false == $isWpMultisiteDependencyMet) {
+            $this->addErrorNotice(
                 'Your site is set up as a Network (Multisite)',
                 'This plugin is not compatible with multisite environment'
             );
         }
 
-        return $is_wp_multisite_dependency_met;
+        return $isWpMultisiteDependencyMet;
     }
 
     /**
@@ -191,67 +191,67 @@ class RequirementsChecker
      * @return bool
      * @since 1.0.0
      */
-    private function are_required_plugins_dependency_met()
+    private function areRequiredPluginsDependencyMet()
     {
-        $plugin_dependency_met = true;
+        $pluginDependencyMet = true;
 
-        if (empty($this->required_plugins)) {
+        if (empty($this->requiredPlugins)) {
             return true;
         }
 
-        $installed_plugins = array_filter(
-            $this->required_plugins,
-            function ($required_plugin_data, $required_plugin_name) {
-                return $this->is_plugin_active($required_plugin_name, $required_plugin_data['plugin_slug']);
+        $installedPlugins = array_filter(
+            $this->requiredPlugins,
+            function ($requiredPluginData, $requiredPluginName) {
+                return $this->isPluginActive($requiredPluginName, $requiredPluginData['pluginSlug']);
             },
             ARRAY_FILTER_USE_BOTH
         );
 
         // If All Plugins are not installed, set plugin_dependency_met flag as false.
-        if (count($installed_plugins) !== count($this->required_plugins)) {
-            $plugin_dependency_met = false;
+        if (count($installedPlugins) !== count($this->requiredPlugins)) {
+            $pluginDependencyMet = false;
         }
 
-        $plugins_installed_with_required_version = array_filter(
-            $installed_plugins,
-            function ($required_plugin_data, $required_plugin_name) {
-                return $this->is_required_plugin_version_active(
-                    $required_plugin_name,
-                    $required_plugin_data['plugin_slug'],
-                    $required_plugin_data['min_plugin_version']
+        $pluginsInstalledWithRequiredVersion = array_filter(
+            $installedPlugins,
+            function ($requiredPluginData, $requiredPluginName) {
+                return $this->isRequiredPluginVersionActive(
+                    $requiredPluginName,
+                    $requiredPluginData['pluginSlug'],
+                    $requiredPluginData['minPluginVersion']
                 );
             },
             ARRAY_FILTER_USE_BOTH
         );
 
         // All Plugins did not met minimum version dependency.
-        if (count($plugins_installed_with_required_version) !== count($this->required_plugins)) {
-            $plugin_dependency_met = false;
+        if (count($pluginsInstalledWithRequiredVersion) !== count($this->requiredPlugins)) {
+            $pluginDependencyMet = false;
         }
 
-        return $plugin_dependency_met;
+        return $pluginDependencyMet;
     }
 
     /**
      * Checks whether plugin is active or not
      *
-     * @param string $plugin_name Name of the plugin.
-     * @param string $plugin_slug Slug of the plugin.
+     * @param string $pluginName Name of the plugin.
+     * @param string $pluginSlug Slug of the plugin.
      *
      * @return bool
      * @since 1.0.0
      */
-    private function is_plugin_active($plugin_name, $plugin_slug)
+    private function isPluginActive($pluginName, $pluginSlug)
     {
         require_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
-        if (is_plugin_active($plugin_slug)) {
+        if (is_plugin_active($pluginSlug)) {
             return true;
         }
 
-        $this->add_error_notice(
-            $plugin_name . ' is a required plugin.',
-            $plugin_name . ' needs to be installed & activated.'
+        $this->addErrorNotice(
+            $pluginName . ' is a required plugin.',
+            $pluginName . ' needs to be installed & activated.'
         );
 
         return false;
@@ -260,25 +260,25 @@ class RequirementsChecker
     /**
      * Checks whether required version of plugin is active
      *
-     * @param string $plugin_name        Plugin Name.
-     * @param string $plugin_slug        Plugin Slug.
-     * @param string $min_plugin_version Minimum version required of the plugin.
+     * @param string $pluginName       Plugin Name.
+     * @param string $pluginSlug       Plugin Slug.
+     * @param string $minPluginVersion Minimum version required of the plugin.
      *
      * @return bool
      * @since 1.0.0
      */
-    private function is_required_plugin_version_active($plugin_name, $plugin_slug, $min_plugin_version)
+    private function isRequiredPluginVersionActive($pluginName, $pluginSlug, $minPluginVersion)
     {
-        $installed_plugin_version = $this->get_plugin_version($plugin_slug);
-        $is_required_plugin_version_active = version_compare($installed_plugin_version, $min_plugin_version, '>=');
+        $installedPluginVersion = $this->getPluginVersion($pluginSlug);
+        $isRequiredPluginVersionActive = version_compare($installedPluginVersion, $minPluginVersion, '>=');
 
-        if (1 == $is_required_plugin_version_active) {
+        if (1 == $isRequiredPluginVersionActive) {
             return true;
         }
 
-        $this->add_error_notice(
-            "{$plugin_name} {$min_plugin_version}+ is required.",
-            "{$plugin_name} {$installed_plugin_version} is installed."
+        $this->addErrorNotice(
+            "{$pluginName} {$minPluginVersion}+ is required.",
+            "{$pluginName} {$installedPluginVersion} is installed."
         );
 
         return false;
@@ -287,26 +287,26 @@ class RequirementsChecker
     /**
      * Returns the plugin version of passed plugin
      *
-     * @param string $plugin_slug Plugin Slug of whose version needs to be retrieved.
+     * @param string $pluginSlug Plugin Slug of whose version needs to be retrieved.
      *
      * @return string Plugin Version
      * @since 1.0.0
      */
-    private function get_plugin_version($plugin_slug)
+    private function getPluginVersion($pluginSlug)
     {
-        $plugin_file_path = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . $plugin_slug;
+        $pluginFilePath = WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . $pluginSlug;
 
-        if (!file_exists($plugin_file_path)) {
-            $plugin_file_path = WPMU_PLUGIN_DIR . DIRECTORY_SEPARATOR . $plugin_slug;
+        if (!file_exists($pluginFilePath)) {
+            $pluginFilePath = WPMU_PLUGIN_DIR . DIRECTORY_SEPARATOR . $pluginSlug;
         }
 
-        $plugin_data = get_plugin_data($plugin_file_path, false, false);
+        $pluginData = get_plugin_data($pluginFilePath, false, false);
 
-        if (empty($plugin_data['Version'])) {
+        if (empty($pluginData['Version'])) {
             return '0.0';
         }
 
-        return $plugin_data['Version'];
+        return $pluginData['Version'];
     }
 
     /**
@@ -314,7 +314,7 @@ class RequirementsChecker
      *
      * @since    1.0.0
      */
-    public function show_requirements_errors()
+    public function showRequirementsErrors()
     {
         $errors = $this->errors;
         require_once(dirname(dirname(__FILE__)) . '/app/templates/admin/errors/requirements-error.php');

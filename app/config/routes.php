@@ -3,7 +3,7 @@
 
 
 use Plugin_Name\PWPF\Routing\Router;
-use Plugin_Name\PWPF\Routing\RouteType as RouteType;
+use Plugin_Name\PWPF\Routing\RouteType;
 
 /*
 |---------------------------------------------------------------------------------------------------------

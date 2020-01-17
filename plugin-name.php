@@ -61,8 +61,8 @@ function plugin_requirements_checker()
 function run_plugin_name()
 {
     // If Plugins Requirements are not met.
-    if (!plugin_requirements_checker()->requirements_met()) {
-        add_action('admin_notices', [plugin_requirements_checker(), 'show_requirements_errors']);
+    if (!plugin_requirements_checker()->requirementsMet()) {
+        add_action('admin_notices', [plugin_requirements_checker(), 'showRequirementsErrors']);
 
         // Deactivate plugin immediately if requirements are not met.
         require_once(ABSPATH . 'wp-admin/includes/plugin.php');

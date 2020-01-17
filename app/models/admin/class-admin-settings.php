@@ -41,7 +41,7 @@ class Admin_Settings extends AbstractAdminModel
      *
      * @since    1.0.0
      */
-    public function register_settings()
+    public function registerSettings()
     {
         // The settings container.
         register_setting(
@@ -75,9 +75,9 @@ class Admin_Settings extends AbstractAdminModel
      * @return string
      * @since 1.0.0
      */
-    public function get_plugin_settings_option_key()
+    public function getPluginSettingsOptionKey()
     {
-        return Settings_Model::get_plugin_settings_option_key();
+        return Settings_Model::getPluginSettingsOptionKey();
     }
 
     /**
@@ -88,9 +88,9 @@ class Admin_Settings extends AbstractAdminModel
      * @return array
      * @since    1.0.0
      */
-    public function get_setting($setting_name)
+    public function getSetting($setting_name)
     {
-        return Settings_Model::get_setting($setting_name);
+        return Settings_Model::getSetting($setting_name);
     }
 
 }

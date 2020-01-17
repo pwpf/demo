@@ -161,7 +161,7 @@ class Plugin_Name extends Dependency_Loader
      *
      * @since    1.0.0
      */
-    public static function get_plugin_path()
+    public static function getPluginPath()
     {
         return isset(self::$plugin_path) ? self::$plugin_path : plugin_dir_path(dirname(__FILE__));
     }
@@ -171,7 +171,7 @@ class Plugin_Name extends Dependency_Loader
      *
      * @since    1.0.0
      */
-    public static function get_plugin_url()
+    public static function getPluginUrl()
     {
         return isset(self::$plugin_url) ? self::$plugin_url : plugin_dir_url(dirname(__FILE__));
     }
@@ -184,9 +184,9 @@ class Plugin_Name extends Dependency_Loader
      * @return array
      * @since 1.0.0
      */
-    public static function get_settings()
+    public static function getSettings()
     {
-        return Settings::get_settings();
+        return Settings::getSettings();
     }
 
     /**
@@ -199,9 +199,9 @@ class Plugin_Name extends Dependency_Loader
      * @return mixed
      * @since 1.0.0
      */
-    public static function get_setting($setting_name)
+    public static function getSetting($setting_name)
     {
-        return Settings::get_setting($setting_name);
+        return Settings::getSetting($setting_name);
     }
 
 }

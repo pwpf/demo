@@ -49,7 +49,7 @@ if (!class_exists('Dependency_Loader')) {
 
             $class_file_name = '/class-' . array_pop($parts) . '.php';
 
-            $file_path = Plugin_Name::get_plugin_path() . implode('/', $parts) . $class_file_name;
+            $file_path = Plugin_Name::getPluginPath() . implode('/', $parts) . $class_file_name;
 
             if (file_exists($file_path)) {
                 require_once($file_path);
@@ -58,37 +58,10 @@ if (!class_exists('Dependency_Loader')) {
 
             $trait_file_name = '/trait-' . array_pop($parts) . '.php';
 
-            $file_path = Plugin_Name::get_plugin_path() . implode('/', $parts) . $trait_file_name;
+            $file_path = Plugin_Name::getPluginPath() . implode('/', $parts) . $trait_file_name;
 
             if (file_exists($file_path)) {
                 require_once($file_path);
-            }
-        }
-
-        /**
-         * Load All Registry Class Files
-         *
-         * @return void
-         * @since    1.0.0
-         */
-        protected function load_registries()
-        {
-            require_once(Plugin_Name::get_plugin_path() . 'core/registry/trait-base-registry.php');
-            require_once(Plugin_Name::get_plugin_path() . 'core/registry/class-controller.php');
-            require_once(Plugin_Name::get_plugin_path() . 'core/registry/class-model.php');
-        }
-
-        /**
-         * Load Core MVC Classes
-         *
-         * @return void
-         * @since    1.0.0
-         */
-        protected function load_core()
-        {
-            $this->load_registries();
-            foreach (glob(Plugin_Name::get_plugin_path() . 'core/*.php') as $path) {
-                require_once $path;
             }
         }
 
@@ -99,7 +72,6 @@ if (!class_exists('Dependency_Loader')) {
          */
         protected function autoload_dependencies()
         {
-            $this->load_core();
             spl_autoload_register([$this, 'load_dependencies']);
         }
     }

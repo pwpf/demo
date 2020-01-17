@@ -31,7 +31,7 @@ if (!class_exists(__NAMESPACE__ . '\\' . 'Settings')) {
          * @return string
          * @since 1.0.0
          */
-        public static function get_plugin_settings_option_key()
+        public static function getPluginSettingsOptionKey()
         {
             return Settings::SETTINGS_NAME;
         }
@@ -42,7 +42,7 @@ if (!class_exists(__NAMESPACE__ . '\\' . 'Settings')) {
          * @return array
          * @since 1.0.0
          */
-        public static function get_settings()
+        public static function getSettings()
         {
             if (!isset(static::$settings)) {
                 static::$settings = get_option(static::SETTINGS_NAME, []);
@@ -54,16 +54,16 @@ if (!class_exists(__NAMESPACE__ . '\\' . 'Settings')) {
         /**
          * Helper method that returns a individual setting
          *
-         * @param string $setting_name Setting to be retrieved.
+         * @param string $settingName Setting to be retrieved.
          *
          * @return mixed
          * @since 1.0.0
          */
-        public static function get_setting($setting_name)
+        public static function getSetting($settingName)
         {
-            $all_settings = static::get_settings();
+            $allSettings = static::getSettings();
 
-            return isset($all_settings[$setting_name]) ? $all_settings[$setting_name] : [];
+            return isset($allSettings[$settingName]) ? $allSettings[$settingName] : [];
         }
 
         /**
@@ -72,7 +72,7 @@ if (!class_exists(__NAMESPACE__ . '\\' . 'Settings')) {
          * @return void
          * @since 1.0.0
          */
-        public static function delete_settings()
+        public static function deleteSettings()
         {
             static::$settings = [];
             delete_option(static::SETTINGS_NAME);
@@ -81,19 +81,19 @@ if (!class_exists(__NAMESPACE__ . '\\' . 'Settings')) {
         /**
          * Helper method to delete a specific setting
          *
-         * @param string $setting_name Setting to be Deleted.
+         * @param string $settingName Setting to be Deleted.
          *
          * @return void
          * @since 1.0.0
          */
-        public static function delete_setting($setting_name)
+        public static function deleteSetting($settingName)
         {
-            $all_settings = static::get_settings();
+            $allSettings = static::getSettings();
 
-            if (isset($all_settings[$setting_name])) {
-                unset($all_settings[$setting_name]);
-                static::$settings = $all_settings;
-                update_option(static::SETTINGS_NAME, $all_settings);
+            if (isset($allSettings[$settingName])) {
+                unset($allSettings[$settingName]);
+                static::$settings = $allSettings;
+                update_option(static::SETTINGS_NAME, $allSettings);
             }
         }
 
@@ -105,10 +105,10 @@ if (!class_exists(__NAMESPACE__ . '\\' . 'Settings')) {
          * @return void
          * @since 1.0.0
          */
-        public static function update_settings($new_settings)
+        public static function updateSettings($new_settings)
         {
-            $all_settings = static::get_settings();
-            $updated_settings = array_merge($all_settings, $new_settings);
+            $allSettings = static::getSettings();
+            $updated_settings = array_merge($allSettings, $new_settings);
             static::$settings = $updated_settings;
             update_option(static::SETTINGS_NAME, $updated_settings);
         }
@@ -116,19 +116,19 @@ if (!class_exists(__NAMESPACE__ . '\\' . 'Settings')) {
         /**
          * Helper method Update Single Setting
          *
-         * Similar to update_settings, this function won't by called anywhere automatically.
+         * Similar to updateSettings, this function won't by called anywhere automatically.
          * This is a custom helper function to delete individual setting. You can
          * delete this method if you don't want this ability.
          *
-         * @param string $setting_name  Setting to be Updated.
-         * @param mixed  $setting_value New value to set for that setting.
+         * @param string $settingName  Setting to be Updated.
+         * @param mixed  $settingValue New value to set for that setting.
          *
          * @return void
          * @since 1.0.0
          */
-        public static function update_setting($setting_name, $setting_value)
+        public static function updateSetting($settingName, $settingValue)
         {
-            static::update_setting([$setting_name => $setting_value]);
+            static::updateSetting([$settingName => $settingValue]);
         }
     }
 }

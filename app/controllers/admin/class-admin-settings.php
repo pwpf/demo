@@ -30,7 +30,7 @@ class Admin_Settings extends AbstractAdminController
      * @var string
      * @since 1.0.0
      */
-    private static $hook_suffix = 'settings_page_' . Plugin_Name::PLUGIN_ID;
+    private static $hookSuffix = 'settings_page_' . Plugin_Name::PLUGIN_ID;
 
     /**
      * Register callbacks for actions and filters
@@ -40,18 +40,17 @@ class Admin_Settings extends AbstractAdminController
     public function registerHookCallbacks()
     {
         // Create Menu.
-        add_action('admin_menu', [$this, 'plugin_menu']);
+        add_action('admin_menu', [$this, 'pluginMenu']);
 
         // Enqueue Styles & Scripts.
-        add_action('admin_print_scripts-' . static::$hook_suffix, [$this, 'enqueue_scripts']);
-        add_action('admin_print_styles-' . static::$hook_suffix, [$this, 'enqueue_styles']);
+        add_action('admin_print_scripts-' . static::$hookSuffix, [$this, 'enqueueScripts']);
+        add_action('admin_print_styles-' . static::$hookSuffix, [$this, 'enqueueStyles']);
 
         // Register Fields.
-
-        add_action('load-' . static::$hook_suffix, [$this, 'register_fields']);
+        add_action('load-' . static::$hookSuffix, [$this, 'register_fields']);
 
         // Register Settings.
-        add_action('admin_init', [$this->get_model(), 'register_settings']);
+        add_action('admin_init', [$this->getModel(), 'registerSettings']);
 
         // Settings Link on Plugin's Page.
         add_filter(
@@ -65,9 +64,9 @@ class Admin_Settings extends AbstractAdminController
      *
      * @since    1.0.0
      */
-    public function plugin_menu()
+    public function pluginMenu()
     {
-        static::$hook_suffix = add_options_page(
+        static::$hookSuffix = add_options_page(
             __('Plugin_name', Plugin_Name::PLUGIN_ID),        // Page Title.
             __('Plugin name settings', Plugin_Name::PLUGIN_ID),        // Menu Title.
             static::REQUIRED_CAPABILITY,           // Capability.
@@ -89,7 +88,7 @@ class Admin_Settings extends AbstractAdminController
      *
      * @since    1.0.0
      */
-    public function enqueue_scripts()
+    public function enqueueScripts()
     {
         /**
          * This function is provided for demonstration purposes only.
@@ -97,7 +96,7 @@ class Admin_Settings extends AbstractAdminController
 
         wp_enqueue_script(
             Plugin_Name::PLUGIN_ID . '_admin-js',
-            Plugin_Name::get_plugin_url() . 'assets/js/admin/app.js',
+            Plugin_Name::getPluginUrl() . 'assets/js/admin/app.js',
             ['jquery'],
             Plugin_Name::PLUGIN_VERSION,
             true
@@ -109,14 +108,14 @@ class Admin_Settings extends AbstractAdminController
      *
      * @since    1.0.0
      */
-    public function enqueue_styles()
+    public function enqueueStyles()
     {
         /**
          * This function is provided for demonstration purposes only.
          */
         wp_enqueue_style(
             Plugin_Name::PLUGIN_ID . '_admin-css',
-            Plugin_Name::get_plugin_url() . 'assets/css/admin/style.css',
+            Plugin_Name::getPluginUrl() . 'assets/css/admin/style.css',
             [],
             Plugin_Name::PLUGIN_VERSION,
             'all'
@@ -135,7 +134,7 @@ class Admin_Settings extends AbstractAdminController
                 'admin/page-settings/page-settings.php',
                 [
                     'page_title' => Plugin_Name::PLUGIN_NAME,
-                    'settings_name' => $this->get_model()->get_plugin_settings_option_key(),
+                    'settings_name' => $this->getModel()->getPluginSettingsOptionKey(),
                 ]
             );
         } else {
@@ -196,12 +195,12 @@ class Admin_Settings extends AbstractAdminController
     public function markup_fields($field_args)
     {
         $field_id = $field_args['id'];
-        $settings_value = $this->get_model()->get_setting($field_id);
+        $settings_value = $this->getModel()->getSetting($field_id);
         return print $this->view->render(
             'admin/page-settings/page-settings-fields.php',
             [
                 'field_id' => esc_attr($field_id),
-                'settings_name' => $this->get_model()->get_plugin_settings_option_key(),
+                'settings_name' => $this->getModel()->getPluginSettingsOptionKey(),
                 'settings_value' => !empty($settings_value) ? esc_attr($settings_value) : '',
             ]
         );
