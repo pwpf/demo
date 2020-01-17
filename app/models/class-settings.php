@@ -15,7 +15,7 @@ if (!class_exists(__NAMESPACE__ . '\\' . 'Settings')) {
     class Settings extends AbstractModel
     {
 
-        const SETTINGS_NAME = Plugin_Name::PLUGIN_ID;
+        public const SETTINGS_NAME = Plugin_Name::PLUGIN_ID;
 
         /**
          * Holds all Settings
