@@ -317,6 +317,6 @@ class RequirementsChecker
     public function showRequirementsErrors()
     {
         $errors = $this->errors;
-        require_once(dirname(dirname(__FILE__)) . '/app/templates/admin/errors/requirements-error.php');
+        require_once(dirname(dirname(__FILE__)) . '/app/Templates/admin/errors/requirements-error.php');
     }
 }
