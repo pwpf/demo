@@ -10,7 +10,7 @@ use Plugin_Name\PWPF\Registry\ModelRegistry;
 /**
  * The main plugin class
  */
-class Plugin_Name extends Dependency_Loader
+class Plugin_Name extends DependencyLoader
 {
 
     /**

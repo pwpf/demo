@@ -6,7 +6,7 @@ use Plugin_Name as Plugin_Name;
 
 use function file_exists;
 
-if (!class_exists('Dependency_Loader')) {
+if (!class_exists('DependencyLoader')) {
     /**
      * Includes all methods required for loading Plugin Dependencies
      *
@@ -15,7 +15,7 @@ if (!class_exists('Dependency_Loader')) {
      * @subpackage Plugin_Name/includes
      * @author     Your Name <email@example.com>
      */
-    class Dependency_Loader
+    class DependencyLoader
     {
 
         /**
