@@ -100,9 +100,9 @@ class Plugin_Name extends Dependency_Loader
     private function set_locale()
     {
         $plugin_i18n = new I18n();
-        $plugin_i18n->set_domain(Plugin_Name::PLUGIN_ID);
+        $plugin_i18n->setDomain(Plugin_Name::PLUGIN_ID);
 
-        add_action('plugins_loaded', [$plugin_i18n, 'load_plugin_textdomain']);
+        add_action('plugins_loaded', [$plugin_i18n, 'loadPluginTextdomain']);
     }
 
     /**
