@@ -89,6 +89,7 @@ set_defaults_for_script
 echo ''
 
 set_plugin_slug
+replace_text_in_files 'Plugin_NameVendor'
 replace_text_in_files 'plugin-name'
 rename_files 'plugin-name' $PLUGIN_SLUG
 replace_text_in_files 'Plugin Name'

@@ -34,7 +34,8 @@
             "composer du"
         ],
         "prefix-pwpf": [
-            "php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=Plugin_Name --output-dir=./vendor_prefixed/pwpf --config=config/php-scoper/pwpf.inc.php --force --quiet"
+            "php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=Plugin_NameVendor --output-dir=./vendor_prefixed/dframe --config=config/php-scoper/dframe.inc.php --force --quiet",
+            "php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=Plugin_NameVendor --output-dir=./vendor_prefixed/pwpf --config=config/php-scoper/pwpf.inc.php --force --quiet"
         ],
         "post-install-cmd": [
             "Plugin_Name\\OverloadClass::prefixDependencies"
