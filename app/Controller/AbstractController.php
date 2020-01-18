@@ -12,14 +12,13 @@ use Plugin_Name\PWPF\View\View;
 abstract class AbstractController extends Controller
 {
 
-    public function __construct(Model $model, $view = false)
+    public function start()
     {
         $config = [
-            'appName' => 'Plugin_Name'
+            'appName' => 'plugin-name'
         ];
 
-        $view = new View($config);
-        parent::__construct($model, $view);
+        $this->view = new \Plugin_Name\PWPF\View\View();
     }
 
     /**
