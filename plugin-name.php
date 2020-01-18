@@ -75,7 +75,7 @@ function run_plugin_name()
      * The core plugin class that is used to define internationalization,
      * admin-specific hooks, and frontend-facing site hooks.
      */
-    require_once plugin_dir_path(__FILE__) . 'includes/class-plugin-name.php';
+    require_once plugin_dir_path(__FILE__) . 'includes/Plugin_Name.php';
 
     /**
      * Begins execution of the plugin.
