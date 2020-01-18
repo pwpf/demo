@@ -2,9 +2,9 @@
 
 namespace Plugin_Name\App\Controller;
 
-use Plugin_Name\PWPF\Controller\Controller;
-use Plugin_Name\PWPF\Model\Model;
-use Plugin_Name\PWPF\View\View;
+use Plugin_NameVendor\PWPF\Controller\Controller;
+use Plugin_NameVendor\PWPF\Model\Model;
+use Plugin_NameVendor\PWPF\View\View;
 
 /**
  * Blueprint for Admin related Controllers. All Admin Controllers should extend this BaseController
@@ -18,7 +18,7 @@ abstract class AbstractController extends Controller
             'appName' => 'plugin-name'
         ];
 
-        $this->view = new \Plugin_Name\PWPF\View\View();
+        $this->view = new \Plugin_NameVendor\PWPF\View\View();
     }
 
     /**

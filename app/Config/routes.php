@@ -2,8 +2,8 @@
 /** @var Router $router */
 
 
-use Plugin_Name\PWPF\Routing\Router;
-use Plugin_Name\PWPF\Routing\RouteType;
+use Plugin_NameVendor\PWPF\Routing\Router;
+use Plugin_NameVendor\PWPF\Routing\RouteType;
 
 /*
 |---------------------------------------------------------------------------------------------------------

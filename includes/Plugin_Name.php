@@ -3,8 +3,8 @@
 namespace Plugin_Name\Includes;
 
 use InvalidArgumentException;
-use Plugin_Name\PWPF\Registry\ControllerRegistry;
-use Plugin_Name\PWPF\Registry\ModelRegistry;
+use Plugin_NameVendor\PWPF\Registry\ControllerRegistry;
+use Plugin_NameVendor\PWPF\Registry\ModelRegistry;
 
 
 /**

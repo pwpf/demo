@@ -2,7 +2,7 @@
 
 namespace Plugin_Name\App\Model;
 
-use Plugin_Name\PWPF\Model\Model;
+use Plugin_NameVendor\PWPF\Model\Model;
 
 /**
  * Blueprint for Admin related Models. All Admin Models should extend this Base_Model
