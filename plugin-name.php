@@ -30,6 +30,7 @@ if (!defined('WPINC')) {
  * Load PSR-4
  */
 require_once __DIR__ . '/vendor/autoload.php';
+include_once __DIR__ . '/vendor_prefixed/dframe/src/Functions.php';
 
 /**
  * Creates/Maintains the object of Requirements Checker Class

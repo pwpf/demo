@@ -78,7 +78,6 @@ class Plugin_Name extends DependencyLoader
         self::$plugin_path = plugin_dir_path(dirname(__FILE__));
         self::$plugin_url = plugin_dir_url(dirname(__FILE__));
 
-        $this->autoload_dependencies();
         $this->set_locale();
 
         if (false !== $router_class_name && false !== $routes) {

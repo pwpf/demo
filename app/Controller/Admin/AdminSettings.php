@@ -7,7 +7,7 @@ use Plugin_Name\Includes\Plugin_Name;
 /**
  * Controller class that implements Plugin Admin Settings configurations
  */
-class Admin_Settings extends AbstractAdminController
+class AdminSettings extends AbstractAdminController
 {
 
     /**
