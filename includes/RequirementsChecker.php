@@ -22,7 +22,7 @@ class RequirementsChecker
      * @var string
      * @since 1.0.0
      */
-    private $minWpVersion = '4.8';
+    private $minWpVersion = '5.3';
 
     /**
      * Holds the information whether plugin is compatible with Multisite or not.
@@ -150,8 +150,8 @@ class RequirementsChecker
      */
     private function isWpVersionDependencyMet()
     {
-        global $wpVersion;
-        $isRequiredWpVersionInstalled = version_compare($wpVersion, $this->minWpVersion, '>=');
+        global $wp_version; 
+        $isRequiredWpVersionInstalled = version_compare($wp_version, $this->minWpVersion, '>=');
 
         if (1 == $isRequiredWpVersionInstalled) {
             return true;
@@ -159,7 +159,7 @@ class RequirementsChecker
 
         $this->addErrorNotice(
             'WordPress ' . $this->minWpVersion . '+ is required',
-            'You\'re running version ' . $wpVersion
+            'You\'re running version ' . $wp_version
         );
 
         return false;

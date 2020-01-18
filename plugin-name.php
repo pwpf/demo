@@ -45,7 +45,7 @@ function plugin_requirements_checker()
         require_once plugin_dir_path(__FILE__) . 'includes/RequirementsChecker.php';
         $requirements_conf = apply_filters(
             'plugin_name_minimum_requirements',
-            include_once(plugin_dir_path(__FILE__) . 'requirementsConfig.php')
+            include_once(plugin_dir_path(__FILE__) . 'app/Config/requirementsConfig.php')
         );
         $requirements_checker = new RequirementsChecker($requirements_conf);
     }
