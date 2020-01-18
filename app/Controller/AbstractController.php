@@ -3,7 +3,6 @@
 namespace Plugin_Name\App\Controller;
 
 use Plugin_NameVendor\PWPF\Controller\Controller;
-use Plugin_NameVendor\PWPF\Model\Model;
 use Plugin_NameVendor\PWPF\View\View;
 
 /**
@@ -18,7 +17,7 @@ abstract class AbstractController extends Controller
             'appName' => 'plugin-name'
         ];
 
-        $this->view = new \Plugin_NameVendor\PWPF\View\View();
+        $this->view = new View();
     }
 
     /**
