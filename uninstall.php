@@ -25,6 +25,8 @@
  */
 
 // If uninstall not called from WordPress, then exit.
+use Plugin_Name\Includes\Plugin_Name;
+
 if (!defined('WP_UNINSTALL_PLUGIN')) {
     exit;
 }
@@ -37,4 +39,4 @@ require_once __DIR__ . '/vendor/autoload.php';
 new Plugin_Name();
 
 // Initiate Uninstall Procedure.
-(new Plugin_Name\App\Uninstaller())->uninstall();
+(new \Plugin_Name\App\Uninstaller())->uninstall();
