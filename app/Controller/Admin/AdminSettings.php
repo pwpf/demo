@@ -50,7 +50,7 @@ class AdminSettings extends AbstractAdminController
         add_action('load-' . static::$hookSuffix, [$this, 'register_fields']);
 
         /** @var \Plugin_Name\App\Model\Admin\AdminSettings $AdminSettingsModel */
-        $AdminSettingsModel = $this->loadModel('Admin/Admin_Settings', '\Plugin_Name\App');
+        $AdminSettingsModel = $this->loadModel('Admin/Admin_Settings', 'Plugin_Name\App');
 
         // Register Settings.
         add_action('admin_init', [$AdminSettingsModel, 'registerSettings']);
