@@ -133,11 +133,15 @@ class AdminSettings extends AbstractAdminController
     public function markup_settings_page()
     {
         if (current_user_can(static::REQUIRED_CAPABILITY)) {
+
+            /** @var \Plugin_Name\App\Model\Admin\AdminSettings $AdminSettingsModel */
+            $AdminSettingsModel = $this->loadModel('Admin/Admin_Settings', 'Plugin_Name\App');
+
             return print $this->view->render(
                 'admin/page-settings/page-settings.php',
                 [
                     'page_title' => Plugin_Name::PLUGIN_NAME,
-                    'settings_name' => $this->getModel()->getPluginSettingsOptionKey(),
+                    'settings_name' => $AdminSettingsModel->getPluginSettingsOptionKey(),
                 ]
             );
         } else {
@@ -197,13 +201,16 @@ class AdminSettings extends AbstractAdminController
      */
     public function markup_fields($field_args)
     {
+        /** @var \Plugin_Name\App\Model\Admin\AdminSettings $AdminSettingsModel */
+        $AdminSettingsModel = $this->loadModel('Admin/Admin_Settings', 'Plugin_Name\App');
+
         $field_id = $field_args['id'];
-        $settings_value = $this->getModel()->getSetting($field_id);
+        $settings_value = $AdminSettingsModel->getSetting($field_id);
         return print $this->view->render(
             'admin/page-settings/page-settings-fields.php',
             [
                 'field_id' => esc_attr($field_id),
-                'settings_name' => $this->getModel()->getPluginSettingsOptionKey(),
+                'settings_name' => $AdminSettingsModel->getPluginSettingsOptionKey(),
                 'settings_value' => !empty($settings_value) ? esc_attr($settings_value) : '',
             ]
         );
