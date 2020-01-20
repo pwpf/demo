@@ -49,8 +49,11 @@ class AdminSettings extends AbstractAdminController
         // Register Fields.
         add_action('load-' . static::$hookSuffix, [$this, 'register_fields']);
 
+        /** @var \Plugin_Name\App\Model\Admin\Admin_Settings $AdminSettingsModel */
+        $AdminSettingsModel = $this->loadModel('Admin/Admin_Settings', '\Plugin_Name\App');
+
         // Register Settings.
-        add_action('admin_init', [$this->getModel(), 'registerSettings']);
+        add_action('admin_init', [$AdminSettingsModel, 'registerSettings']);
 
         // Settings Link on Plugin's Page.
         add_filter(

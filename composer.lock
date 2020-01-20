@@ -152,12 +152,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JetBrains/phpstorm-stubs.git",
-                "reference": "439670d7d756b23e6182a6c68a2a5025da87c36b"
+                "reference": "87d8c4a4391a87dd6069a32cae88a3b20c30e1d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JetBrains/phpstorm-stubs/zipball/439670d7d756b23e6182a6c68a2a5025da87c36b",
-                "reference": "439670d7d756b23e6182a6c68a2a5025da87c36b",
+                "url": "https://api.github.com/repos/JetBrains/phpstorm-stubs/zipball/87d8c4a4391a87dd6069a32cae88a3b20c30e1d4",
+                "reference": "87d8c4a4391a87dd6069a32cae88a3b20c30e1d4",
                 "shasum": ""
             },
             "require-dev": {
@@ -188,7 +188,7 @@
                 "stubs",
                 "type"
             ],
-            "time": "2020-01-17T17:43:19+00:00"
+            "time": "2020-01-20T11:42:46+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -396,12 +396,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pwpf/pwpf.git",
-                "reference": "5fa432ddb74c620068565582842721f0bd651950"
+                "reference": "5d06379d54139ab7df1b366f2c8e1fba33fcea7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pwpf/pwpf/zipball/5fa432ddb74c620068565582842721f0bd651950",
-                "reference": "5fa432ddb74c620068565582842721f0bd651950",
+                "url": "https://api.github.com/repos/pwpf/pwpf/zipball/5d06379d54139ab7df1b366f2c8e1fba33fcea7d",
+                "reference": "5d06379d54139ab7df1b366f2c8e1fba33fcea7d",
                 "shasum": ""
             },
             "require": {
@@ -419,7 +419,7 @@
                 }
             ],
             "description": "Plugin WordPress Framework",
-            "time": "2020-01-17T19:04:56+00:00"
+            "time": "2020-01-18T14:43:31+00:00"
         },
         {
             "name": "symfony/console",

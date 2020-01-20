@@ -7,7 +7,7 @@ use Plugin_Name\App\Model\Settings as Settings_Model;
 /**
  * Model class that implements Plugin Admin Settings
  */
-class Admin_Settings extends AbstractAdminModel
+class AdminSettings extends AbstractAdminModel
 {
 
     /**
@@ -15,7 +15,7 @@ class Admin_Settings extends AbstractAdminModel
      *
      * @since    1.0.0
      */
-    protected function __construct()
+    protected function start()
     {
         $this->registerHookCallbacks();
     }
