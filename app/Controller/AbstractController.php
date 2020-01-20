@@ -4,12 +4,16 @@ namespace Plugin_Name\App\Controller;
 
 use Plugin_NameVendor\PWPF\Controller\Controller;
 
-
 /**
  * Blueprint for Admin related Controllers. All Admin Controllers should extend this BaseController
  */
 abstract class AbstractController extends Controller
 {
+
+    /**
+     * @var \Plugin_Name\App\View\View
+     */
+    protected $view;
 
     public function start()
     {
