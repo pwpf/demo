@@ -48,18 +48,18 @@ class Plugin_Name extends DependencyLoader
      *
      * @since    1.0.0
      * @access   private
-     * @var      string $plugin_path Main path.
+     * @var      string $pluginPath Main path.
      */
-    private static $plugin_path;
+    private static $pluginPath;
 
     /**
      * Absolute plugin url <wordpress-root-folder>/wp-content/plugins/<plugin-folder>/.
      *
      * @since    1.0.0
      * @access   private
-     * @var      string $plugin_url Main path.
+     * @var      string $pluginUrl Main path.
      */
-    private static $plugin_url;
+    private static $pluginUrl;
 
     private $params;
 
@@ -68,20 +68,20 @@ class Plugin_Name extends DependencyLoader
      *
      * Load the dependencies, define the locale, and bootstraps Router.
      *
-     * @param mixed $router_class_name Name of the Router class to load. Otherwise false.
+     * @param mixed $routerClassName Name of the Router class to load. Otherwise false.
      * @param mixed $routes            File that contains list of all routes. Otherwise false.
      *
      * @since    1.0.0
      */
-    public function __construct($router_class_name = false, $routes = false)
+    public function __construct($routerClassName = false, $routes = false)
     {
-        self::$plugin_path = plugin_dir_path(dirname(__FILE__));
-        self::$plugin_url = plugin_dir_url(dirname(__FILE__));
+        self::$pluginPath = plugin_dir_path(dirname(__FILE__));
+        self::$pluginUrl = plugin_dir_url(dirname(__FILE__));
 
-        $this->set_locale();
+        $this->setLocale();
 
-        if (false !== $router_class_name && false !== $routes) {
-            $this->init_router($router_class_name, $routes);
+        if (false !== $routerClassName && false !== $routes) {
+            $this->initRouter($routerClassName, $routes);
         }
 
         $this->controllers = $this->getAllControllers();
@@ -96,7 +96,7 @@ class Plugin_Name extends DependencyLoader
      *
      * @since    1.0.0.0
      */
-    private function set_locale()
+    private function setLocale()
     {
         $plugin_i18n = new I18n();
         $plugin_i18n->setDomain(Plugin_Name::PLUGIN_ID);
@@ -107,24 +107,24 @@ class Plugin_Name extends DependencyLoader
     /**
      * Init Router
      *
-     * @param mixed $router_class_name Name of the Router class to load.
+     * @param mixed $routerClassName Name of the Router class to load.
      * @param mixed $routes            File that contains list of all routes.
      *
      * @return void
      * @throws InvalidArgumentException If Router class or Routes file is not found.
      * @since 1.0.0
      */
-    private function init_router($router_class_name, $routes)
+    private function initRouter($routerClassName, $routes)
     {
-        if (!class_exists($router_class_name)) {
-            throw new InvalidArgumentException("Could not load {$router_class_name} class!");
+        if (!class_exists($routerClassName)) {
+            throw new InvalidArgumentException("Could not load {$routerClassName} class!");
         }
 
         if (!file_exists($routes)) {
             throw new InvalidArgumentException("Routes file {$routes} not found! Please pass a valid file.");
         }
 
-        $this->router = $router = new $router_class_name(); // @codingStandardsIgnoreLine.
+        $this->router = $router = new $routerClassName(); // @codingStandardsIgnoreLine.
         add_action(
             'plugins_loaded',
             function () use ($router, $routes) {
@@ -162,7 +162,7 @@ class Plugin_Name extends DependencyLoader
      */
     public static function getPluginPath()
     {
-        return isset(self::$plugin_path) ? self::$plugin_path : plugin_dir_path(dirname(__FILE__));
+        return isset(self::$pluginPath) ? self::$pluginPath : plugin_dir_path(dirname(__FILE__));
     }
 
     /**
@@ -172,7 +172,7 @@ class Plugin_Name extends DependencyLoader
      */
     public static function getPluginUrl()
     {
-        return isset(self::$plugin_url) ? self::$plugin_url : plugin_dir_url(dirname(__FILE__));
+        return isset(self::$pluginUrl) ? self::$pluginUrl : plugin_dir_url(dirname(__FILE__));
     }
 
     /**
