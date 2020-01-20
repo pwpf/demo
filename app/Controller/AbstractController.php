@@ -3,7 +3,7 @@
 namespace Plugin_Name\App\Controller;
 
 use Plugin_NameVendor\PWPF\Controller\Controller;
-use Plugin_NameVendor\PWPF\View\View;
+
 
 /**
  * Blueprint for Admin related Controllers. All Admin Controllers should extend this BaseController
@@ -13,11 +13,7 @@ abstract class AbstractController extends Controller
 
     public function start()
     {
-        $config = [
-            'appName' => 'plugin-name'
-        ];
-
-        $this->view = new View();
+        $this->view = new \Plugin_Name\App\View\View();
     }
 
     /**
