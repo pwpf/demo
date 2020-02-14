@@ -38,10 +38,30 @@
             "php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=Plugin_NameVendor --output-dir=./vendor_prefixed/pwpf --config=config/php-scoper/pwpf.inc.php --force --quiet"
         ],
         "post-install-cmd": [
-            "Plugin_Name\\OverloadClass::prefixDependencies"
+            "Plugin_Name\\OverloadClass::prefixDependencies",
+            "rm --r vendor/bin/",
+            "rm --r vendor/dframe/",
+            "rm --r vendor/pwpf/",
+            "rm --r vendor/humbug/",
+            "rm --r vendor/jetbrains/",
+            "rm --r vendor/nikic/",
+            "rm --r vendor/ocramius/",
+            "rm --r vendor/psr/",
+            "rm --r vendor/symfony/",
+            "composer du"
         ],
         "post-update-cmd": [
-            "Plugin_Name\\OverloadClass::prefixDependencies"
+            "Plugin_Name\\OverloadClass::prefixDependencies",
+            "rm --r vendor/bin/",
+            "rm --r vendor/dframe/",
+            "rm --r vendor/pwpf/",
+            "rm --r vendor/humbug/",
+            "rm --r vendor/jetbrains/",
+            "rm --r vendor/nikic/",
+            "rm --r vendor/ocramius/",
+            "rm --r vendor/psr/",
+            "rm --r vendor/symfony/",
+            "composer du"
         ]
     }
 }
