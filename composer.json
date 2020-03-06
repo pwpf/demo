@@ -22,7 +22,7 @@
     "require": {
     },
     "require-dev": {
-        "pwpf/pwpf": "dev-master",
+        "pwpf/pwpf": "^0.1",
         "humbug/php-scoper": "^0.12.0"
     },
     "minimum-stability": "dev",
