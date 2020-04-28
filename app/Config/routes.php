@@ -138,5 +138,5 @@ $router
     ->registerRouteOfType(RouteType::ADMIN)
     ->setApp('Plugin_Name')
     ->withController(
-        '\Plugin_Name\App\Controller\Admin\AdminSettings@register_hook_callbacks'
+        '\Plugin_Name\App\Controller\Admin\AdminSettings@registerHookCallbacks'
     ); // Resolved by Router to 'Plugin_Name\App\Views\Admin\Admin_Settings'.
