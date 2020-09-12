@@ -1,11 +1,11 @@
 <?php
 
-namespace Plugin_Name\App\Controller\Admin;
+namespace Plugin_Name\App\Controller\Frontend;
 
 use Plugin_Name\App\Controller\AbstractController;
 
 /**
- * Blueprint for Admin related Controllers. All Admin Controllers should extend this BaseController
+ * Blueprint for Frontend related Controllers. All Frontend Controllers should extend this BaseController
  */
 abstract class AbstractFrontendController extends AbstractController
 {
