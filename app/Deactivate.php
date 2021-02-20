@@ -7,7 +7,7 @@ namespace Plugin_Name\App;
  *
  * This class defines all code necessary to run during the plugin's deactivation.
  */
-class Deactivator
+class Deactivate
 {
 
     /**

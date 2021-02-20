@@ -3,4 +3,4 @@ against=$(git rev-parse --short HEAD)
 
 perl -i -pe "s/ Version:           1.0.0-\K([0-9a-zA-Z]+)/ '$against' /e" ./plugin-name.php
 
-git add ./gentaur.php
+git add ./plugin-name.php

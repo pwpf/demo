@@ -11,6 +11,7 @@
     "autoload": {
         "psr-4": {
             "Plugin_Name\\App\\": "app/",
+            "Plugin_Name\\Includes\\": "includes/",
             "Plugin_Name\\": ""
         },
         "classmap": [
@@ -22,46 +23,29 @@
     "require": {
     },
     "require-dev": {
-        "pwpf/pwpf": "^0.1",
-        "humbug/php-scoper": "^0.12.0"
+        "pwpf/pwpf": "^0.2",
+        "php": ">=7.3",
+        "ext-json": "*"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
         "prefix-dependencies": [
-            "composer prefix-pwpf",
-            "touch ./vendor_prefixed/dependencies-prefixed.txt",
-            "composer du"
+            "php php-scoper.phar add-prefix --prefix=Plugin_NameVendor --output-dir=./vendor_prefixed/dframe --config=config/php-scoper/dframe.inc.php --force --quiet",
+            "php php-scoper.phar add-prefix --prefix=Plugin_NameVendor --output-dir=./vendor_prefixed/pwpf --config=config/php-scoper/pwpf.inc.php --force --quiet"
         ],
-        "prefix-pwpf": [
-            "php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=Plugin_NameVendor --output-dir=./vendor_prefixed/dframe --config=config/php-scoper/dframe.inc.php --force --quiet",
-            "php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=Plugin_NameVendor --output-dir=./vendor_prefixed/pwpf --config=config/php-scoper/pwpf.inc.php --force --quiet"
+        "post-cmd": [
+            "Plugin_Name\\ComposerHelper::prefixDependencies",
+            "rm --r vendor/dframe/",
+            "rm --r vendor/pwpf/",
+            "composer dump-autoload --no-interaction --ansi --verbose --optimize",
+            "Plugin_Name\\ComposerHelper::moveVendor"
         ],
         "post-install-cmd": [
-            "Plugin_Name\\OverloadClass::prefixDependencies",
-            "rm --r vendor/bin/",
-            "rm --r vendor/dframe/",
-            "rm --r vendor/pwpf/",
-            "rm --r vendor/humbug/",
-            "rm --r vendor/jetbrains/",
-            "rm --r vendor/nikic/",
-            "rm --r vendor/ocramius/",
-            "rm --r vendor/psr/",
-            "rm --r vendor/symfony/",
-            "composer du"
+            "@post-cmd"
         ],
         "post-update-cmd": [
-            "Plugin_Name\\OverloadClass::prefixDependencies",
-            "rm --r vendor/bin/",
-            "rm --r vendor/dframe/",
-            "rm --r vendor/pwpf/",
-            "rm --r vendor/humbug/",
-            "rm --r vendor/jetbrains/",
-            "rm --r vendor/nikic/",
-            "rm --r vendor/ocramius/",
-            "rm --r vendor/psr/",
-            "rm --r vendor/symfony/",
-            "composer du"
+            "@post-cmd"
         ]
     }
 }

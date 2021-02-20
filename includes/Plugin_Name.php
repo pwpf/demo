@@ -3,14 +3,16 @@
 namespace Plugin_Name\Includes;
 
 use InvalidArgumentException;
-use Plugin_NameVendor\PWPF\Registry\ControllerRegistry;
-use Plugin_NameVendor\PWPF\Registry\ModelRegistry;
 
+use const Plugin_Name\MAIN_PATH;
 
 /**
  * The main plugin class
+ *
+ * @since      1.0.0
+ * @package    pl
  */
-class Plugin_Name extends DependencyLoader
+class Plugin_Name
 {
 
     /**
@@ -28,29 +30,31 @@ class Plugin_Name extends DependencyLoader
     public const PLUGIN_NAME = 'Plugin Name';
 
     /**
-     * The current version of the plugin.
-     *
-     * @since    1.0.0
-     */
-    public const PLUGIN_VERSION = '1.0.0';
-
-    /**
-     * Holds instance of this class
-     *
-     * @since    1.0.0
-     * @access   private
-     * @var      Plugin_Name $instance Instance of this class.
-     */
-    private static $instance;
-
-    /**
      * Main plugin path /wp-content/plugins/<plugin-folder>/.
      *
      * @since    1.0.0
      * @access   private
      * @var      string $pluginPath Main path.
      */
-    private static $pluginPath;
+    private static $pluginPath = '';
+
+    /**
+     * Plugin Template path /wp-content/plugins/<plugin-folder>/app/Templates/.
+     *
+     * @since    1.0.0
+     * @access   private
+     * @var      string $pluginTemplatePath Main path.
+     */
+    private static $pluginTemplatePath = '';
+
+    /**
+     * Plugin Template path /wp-content/plugins/<plugin-folder>/app/Templates/.
+     *
+     * @since    1.0.0
+     * @access   private
+     * @var      string $pluginTemplateRelativePath Main path.
+     */
+    private static $pluginTemplateRelativePath = '';
 
     /**
      * Absolute plugin url <wordpress-root-folder>/wp-content/plugins/<plugin-folder>/.
@@ -59,9 +63,26 @@ class Plugin_Name extends DependencyLoader
      * @access   private
      * @var      string $pluginUrl Main path.
      */
-    private static $pluginUrl;
+    private static $pluginUrl = '';
 
-    private $params;
+    /**
+     * Version number of plugin
+     *
+     * @var null|string
+     */
+    private static $version = null;
+
+    /**
+     * Wordpres options cache
+     *
+     * @var array
+     */
+    private static $options = [];
+
+    /**
+     * @var mixed
+     */
+    private $router;
 
     /**
      * Define the core functionality of the plugin.
@@ -69,23 +90,31 @@ class Plugin_Name extends DependencyLoader
      * Load the dependencies, define the locale, and bootstraps Router.
      *
      * @param mixed $routerClassName Name of the Router class to load. Otherwise false.
-     * @param mixed $routes            File that contains list of all routes. Otherwise false.
+     * @param mixed $routes          File that contains list of all routes. Otherwise false.
      *
      * @since    1.0.0
      */
-    public function __construct($routerClassName = false, $routes = false)
+    public function __construct($routerClassName = false, $routes = false, $boostrap = false)
     {
-        self::$pluginPath = plugin_dir_path(dirname(__FILE__));
-        self::$pluginUrl = plugin_dir_url(dirname(__FILE__));
+        $this->routerClassName = $routerClassName;
+        $this->routes = $routes;
+        $this->boostrap = $boostrap;
+    }
 
+    /**
+     * Define the core functionality of the plugin.
+     *
+     * Load the dependencies, define the locale, and bootstraps Router.
+     *
+     * @since    1.0.0
+     */
+    public function run()
+    {
         $this->setLocale();
 
-        if (false !== $routerClassName && false !== $routes) {
-            $this->initRouter($routerClassName, $routes);
+        if ($this->routerClassName !== false and $this->routes !== false) {
+            $this->initRouter($this->routerClassName, $this->routes);
         }
-
-        $this->controllers = $this->getAllControllers();
-        $this->models = $this->getAllModels();
     }
 
     /**
@@ -96,10 +125,10 @@ class Plugin_Name extends DependencyLoader
      *
      * @since    1.0.0.0
      */
-    private function setLocale()
+    private function setLocale(): void
     {
         $plugin_i18n = new I18n();
-        $plugin_i18n->setDomain(Plugin_Name::PLUGIN_ID);
+        $plugin_i18n->setDomain(self::PLUGIN_ID);
 
         add_action('plugins_loaded', [$plugin_i18n, 'loadPluginTextdomain']);
     }
@@ -108,7 +137,7 @@ class Plugin_Name extends DependencyLoader
      * Init Router
      *
      * @param mixed $routerClassName Name of the Router class to load.
-     * @param mixed $routes            File that contains list of all routes.
+     * @param mixed $routes          File that contains list of all routes.
      *
      * @return void
      * @throws InvalidArgumentException If Router class or Routes file is not found.
@@ -134,35 +163,55 @@ class Plugin_Name extends DependencyLoader
     }
 
     /**
-     * Returns all controller objects used for current requests
-     *
-     * @return object
-     * @since    1.0.0
-     */
-    private function getAllControllers()
-    {
-        return (object)ControllerRegistry::getAllObjects();
-    }
-
-    /**
-     * Returns all model objecs used for current requests
-     *
-     * @return object
-     * @since   1.0.0
-     */
-    private function getAllModels()
-    {
-        return (object)ModelRegistry::getAllObjects();
-    }
-
-    /**
      * Get plugin's absolute path.
      *
      * @since    1.0.0
      */
-    public static function getPluginPath()
+    public static function getPluginPath(): string
     {
-        return isset(self::$pluginPath) ? self::$pluginPath : plugin_dir_path(dirname(__FILE__));
+        if ('' === self::$pluginPath) {
+            self::$pluginPath = MAIN_PATH;
+        }
+
+        return self::$pluginPath;
+    }
+
+    /**
+     * Get plugin's dir name.
+     */
+    public static function getPluginDirName(): string
+    {
+        $dir = trim(self::getPluginPath(), DIRECTORY_SEPARATOR);
+        $dirs = explode(DIRECTORY_SEPARATOR, $dir);
+
+        return end($dirs);
+    }
+
+    /**
+     * Get plugin's Templates directory absolute path.
+     *
+     * @since    1.0.0
+     */
+    public static function getPluginTemplatesPath(): string
+    {
+        if (self::$pluginTemplatePath === '') {
+            self::$pluginTemplatePath = self::getPluginPath(
+                ) . 'app' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR;
+        }
+
+        return self::$pluginTemplatePath;
+    }
+
+    /**
+     * Get plugin's Templates directory relative path.
+     */
+    public static function getPluginTemplatesRelativePath(): string
+    {
+        if (self::$pluginTemplateRelativePath === '') {
+            self::$pluginTemplateRelativePath = DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'Templates' . DIRECTORY_SEPARATOR;
+        }
+
+        return self::$pluginTemplateRelativePath;
     }
 
     /**
@@ -170,37 +219,35 @@ class Plugin_Name extends DependencyLoader
      *
      * @since    1.0.0
      */
-    public static function getPluginUrl()
+    public static function getPluginUrl(): string
     {
-        return isset(self::$pluginUrl) ? self::$pluginUrl : plugin_dir_url(dirname(__FILE__));
+        if (self::$pluginUrl === '') {
+            self::$pluginUrl = plugin_dir_url(dirname(__FILE__, 2));
+        }
+
+        return self::$pluginUrl;
     }
 
-    /**
-     * Method that retuns all Saved Settings related to Plugin.
-     *
-     * Only to be used by third party developers.
-     *
-     * @return array
-     * @since 1.0.0
-     */
-    public static function getSettings()
+    public static function getPluginVersion(): string
     {
-        return Settings::getSettings();
+        if (self::$version === null) {
+            $plugin_data = get_plugin_data(MAIN_PATH . "plugin-name.php");
+            self::$version = $plugin_data['Version'];
+        }
+
+        return self::$version;
     }
 
-    /**
-     * Method that returns a individual setting
-     *
-     * Only to be used by third party developers.
-     *
-     * @param string $setting_name Setting to be retrieved.
-     *
-     * @return mixed
-     * @since 1.0.0
-     */
-    public static function getSetting($setting_name)
+    public static function getOptions(): array
     {
-        return Settings::getSetting($setting_name);
-    }
+        if (self::$options === []) {
+            $options = get_option('plugin-name', false);
 
+            if (is_array($options)) {
+                self::$options = get_option('plugin-name', false);
+            }
+        }
+
+        return self::$options;
+    }
 }

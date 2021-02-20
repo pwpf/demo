@@ -39,6 +39,7 @@ class AdminSettings extends AbstractAdminController
      */
     public function registerHookCallbacks()
     {
+
         // Create Menu.
         add_action('admin_menu', [$this, 'pluginMenu']);
 
@@ -49,8 +50,9 @@ class AdminSettings extends AbstractAdminController
         // Register Fields.
         add_action('load-' . static::$hookSuffix, [$this, 'register_fields']);
 
+
         /** @var \Plugin_Name\App\Model\Admin\AdminSettings $AdminSettingsModel */
-        $AdminSettingsModel = $this->loadModel('Admin/Admin_Settings', 'Plugin_Name\App');
+        $AdminSettingsModel = $this->loadModel('Admin/AdminSettings', 'Plugin_Name\App');
 
         // Register Settings.
         add_action('admin_init', [$AdminSettingsModel, 'registerSettings']);
@@ -76,14 +78,6 @@ class AdminSettings extends AbstractAdminController
             static::SETTINGS_PAGE_SLUG,             // Menu URL.
             [$this, 'markup_settings_page'] // Callback.
         );
-        // add_menu_page(
-        //     'Main',
-        //     __( 'Plugin_Name', Plugin_Name::PLUGIN_ID ),
-        //     static::REQUIRED_CAPABILITY,
-        //     static::SETTINGS_PAGE_SLUG,             // Menu URL.
-        //     array( $this, 'markup_settings_page') // Callback.
-        // );
-        // @codingStandardsIgnoreEnd.
     }
 
     /**
@@ -96,12 +90,11 @@ class AdminSettings extends AbstractAdminController
         /**
          * This function is provided for demonstration purposes only.
          */
-
         wp_enqueue_script(
             Plugin_Name::PLUGIN_ID . '_admin-js',
             Plugin_Name::getPluginUrl() . 'assets/js/admin/app.js',
             ['jquery'],
-            Plugin_Name::PLUGIN_VERSION,
+            Plugin_Name::getPluginVersion(),
             true
         );
     }
@@ -120,7 +113,7 @@ class AdminSettings extends AbstractAdminController
             Plugin_Name::PLUGIN_ID . '_admin-css',
             Plugin_Name::getPluginUrl() . 'assets/css/admin/style.css',
             [],
-            Plugin_Name::PLUGIN_VERSION,
+            Plugin_Name::getPluginVersion(),
             'all'
         );
     }
@@ -135,7 +128,8 @@ class AdminSettings extends AbstractAdminController
         if (current_user_can(static::REQUIRED_CAPABILITY)) {
 
             /** @var \Plugin_Name\App\Model\Admin\AdminSettings $AdminSettingsModel */
-            $AdminSettingsModel = $this->loadModel('Admin/Admin_Settings', 'Plugin_Name\App');
+            $AdminSettingsModel = $this->loadModel('Admin/AdminSettings', 'Plugin_Name\App');
+
 
             return print $this->view->render(
                 'admin/page-settings/page-settings.php',

@@ -17,7 +17,7 @@ abstract class AbstractController extends Controller
 
     public function start()
     {
-        $this->view = new \Plugin_Name\App\View\View();
+        $this->view = $this->loadView('Index', 'Plugin_Name\App');
     }
 
     /**

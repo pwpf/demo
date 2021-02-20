@@ -1,6 +1,6 @@
 <?php
 
-namespace Plugin_NameVendor;
+namespace Plugin_Name;
 
 class Bootstrap
 {

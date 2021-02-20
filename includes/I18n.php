@@ -2,6 +2,9 @@
 
 namespace Plugin_Name\Includes;
 
+
+defined('WPINC') or die;
+
 /**
  * Define the internationalization functionality
  *
@@ -11,12 +14,10 @@ namespace Plugin_Name\Includes;
  * @link       http://example.com
  * @since      1.0.0.0
  *
- * @package    Plugin_Name
- * @subpackage Plugin_Name/includes
  */
 class I18n
-{  // @codingStandardsIgnoreLine.
-
+{
+    // @codingStandardsIgnoreLine.
     /**
      * The domain specified for this plugin.
      *
@@ -31,12 +32,12 @@ class I18n
      *
      * @since    1.0.0.0
      */
-    public function loadPluginTextdomain()
+    public function loadPluginTextDomain(): void
     {
         load_plugin_textdomain(
             $this->domain,
             false,
-            dirname(dirname(plugin_basename(__FILE__))) . '/languages/'
+            Plugin_Name::getPluginDirName() . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'Languages'
         );
     }
 
@@ -47,9 +48,8 @@ class I18n
      *
      * @since    1.0.0.0
      */
-    public function setDomain($domain)
+    public function setDomain(string $domain): void
     {
         $this->domain = $domain;
     }
-
 }
