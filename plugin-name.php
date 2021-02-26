@@ -46,20 +46,23 @@ include_once __DIR__ . '/vendor_prefixed/dframe/src/Functions.php';
  * @return RequirementsChecker
  * @since 1.0.0
  */
-function plugin_requirements_checker()
-{
-    static $requirements_checker = null;
+try {
+    register_activation_hook(MAIN_PATH . 'plugin-name.php', [new Activator(), 'activate']);
+    register_deactivation_hook(MAIN_PATH . 'plugin-name.php', [new Deactivate(), 'deactivate']);
+    add_action('upgrader_process_complete', [new Update(), 'update'], 10, 2);
 
-    if (null === $requirements_checker) {
-        require_once plugin_dir_path(__FILE__) . 'includes/RequirementsChecker.php';
-        $requirements_conf = apply_filters(
-            'plugin_name_minimum_requirements',
-            include_once(plugin_dir_path(__FILE__) . 'app/Config/requirementsConfig.php')
-        );
-        $requirements_checker = new RequirementsChecker($requirements_conf);
+    $requirementsChecker = \Plugin_Name\Includes\RequirementsChecker::getPluginRequirementsChecker();
+    if (!$requirementsChecker->requirementsMet()) {
+        add_action('admin_notices', [$requirementsChecker, 'showRequirementsErrors']);
+
+        // Deactivate plugin immediately if requirements are not met.
+        require_once(ABSPATH . 'wp-admin' . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'plugin.php');
+        deactivate_plugins(plugin_basename(__FILE__));
+
+        throw new Exception('Plugin Name plugin requirements are not met.');
     }
-
-    return $requirements_checker;
+} catch (Exception $e) {
+    return (new \Plugin_Name\App\Deactivate())->deactivate();
 }
 
 
