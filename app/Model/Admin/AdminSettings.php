@@ -43,12 +43,12 @@ class AdminSettings extends AbstractAdminModel
      */
     public function registerSettings()
     {
-//        // The settings container.
-//        register_setting(
-//            Settings_Model::SETTINGS_NAME,     // Option group Name.
-//            Settings_Model::SETTINGS_NAME,     // Option Name.
-//            [$this, 'sanitize'] // Sanitize.
-//        );
+        // The settings container.
+        register_setting(
+            Settings_Model::SETTINGS_NAME,     // Option group Name.
+            Settings_Model::SETTINGS_NAME,     // Option Name.
+            [$this, 'sanitize'] // Sanitize.
+        );
     }
 
     /**
