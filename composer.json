@@ -23,7 +23,7 @@
     "require": {
     },
     "require-dev": {
-        "pwpf/pwpf": "^0.2",
+        "pwpf/pwpf": "^v1.0",
         "php": ">=7.3",
         "ext-json": "*"
     },

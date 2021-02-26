@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "996c3f9d22c71b3793095958f274881d",
+    "content-hash": "f3b97614fdd0d739d54cf4ec148e0b6f",
     "packages": [],
     "packages-dev": [
         {
@@ -139,16 +139,16 @@
         },
         {
             "name": "pwpf/pwpf",
-            "version": "v0.2.0",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pwpf/pwpf.git",
-                "reference": "54ddb42f20c6abd904e614d58c1233ad74790810"
+                "reference": "ba9deff79ba210cc7c4b30ffaddc10dbc113f26e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pwpf/pwpf/zipball/54ddb42f20c6abd904e614d58c1233ad74790810",
-                "reference": "54ddb42f20c6abd904e614d58c1233ad74790810",
+                "url": "https://api.github.com/repos/pwpf/pwpf/zipball/ba9deff79ba210cc7c4b30ffaddc10dbc113f26e",
+                "reference": "ba9deff79ba210cc7c4b30ffaddc10dbc113f26e",
                 "shasum": ""
             },
             "require": {
@@ -168,9 +168,9 @@
             "description": "Plugin WordPress Framework",
             "support": {
                 "issues": "https://github.com/pwpf/pwpf/issues",
-                "source": "https://github.com/pwpf/pwpf/tree/v0.2.0"
+                "source": "https://github.com/pwpf/pwpf/tree/v1.0.0"
             },
-            "time": "2020-09-07T12:47:09+00:00"
+            "time": "2021-02-20T13:18:26+00:00"
         }
     ],
     "aliases": [],
