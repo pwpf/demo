@@ -94,11 +94,11 @@ class Plugin_Name
      *
      * @since    1.0.0
      */
-    public function __construct($routerClassName = false, $routes = false, $boostrap = false)
+    public function __construct($routerClassName = false, $routes = false, $bootstrap = false)
     {
         $this->routerClassName = $routerClassName;
         $this->routes = $routes;
-        $this->boostrap = $boostrap;
+        $this->boostrap = $bootstrap;
     }
 
     /**
@@ -113,7 +113,7 @@ class Plugin_Name
         $this->setLocale();
 
         if ($this->routerClassName !== false and $this->routes !== false) {
-            $this->initRouter($this->routerClassName, $this->routes);
+            $this->initRouter($this->routerClassName, $this->routes, $this->boostrap);
         }
     }
 
@@ -143,7 +143,7 @@ class Plugin_Name
      * @throws InvalidArgumentException If Router class or Routes file is not found.
      * @since 1.0.0
      */
-    private function initRouter($routerClassName, $routes)
+    private function initRouter($routerClassName, $routes, $bootstrap)
     {
         if (!class_exists($routerClassName)) {
             throw new InvalidArgumentException("Could not load {$routerClassName} class!");
@@ -153,7 +153,7 @@ class Plugin_Name
             throw new InvalidArgumentException("Routes file {$routes} not found! Please pass a valid file.");
         }
 
-        $this->router = $router = new $routerClassName(); // @codingStandardsIgnoreLine.
+        $this->router = $router = new $routerClassName($bootstrap); // @codingStandardsIgnoreLine.
         add_action(
             'plugins_loaded',
             function () use ($router, $routes) {
