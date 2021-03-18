@@ -33,7 +33,7 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
 /**
  * Load PSR-4
  */
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor_prefixed/autoload.php';
 
 // Bootstrap Plugin without router.
 new Plugin_Name();
