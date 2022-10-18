@@ -4,26 +4,25 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f3b97614fdd0d739d54cf4ec148e0b6f",
-    "packages": [],
-    "packages-dev": [
+    "content-hash": "648b30645fb0846126f21c09ed5d8b45",
+    "packages": [
         {
             "name": "dframe/dframe",
-            "version": "v4.1.5",
+            "version": "v4.2.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dframe/dframe.git",
-                "reference": "e8a5d9b9cac673a4d179d9ce66947e50026318fa"
+                "reference": "d4d5d2e5f225b2f81808a30e2f01bb53702b8376"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dframe/dframe/zipball/e8a5d9b9cac673a4d179d9ce66947e50026318fa",
-                "reference": "e8a5d9b9cac673a4d179d9ce66947e50026318fa",
+                "url": "https://api.github.com/repos/dframe/dframe/zipball/d4d5d2e5f225b2f81808a30e2f01bb53702b8376",
+                "reference": "d4d5d2e5f225b2f81808a30e2f01bb53702b8376",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "php": ">=7.3",
+                "php": ">=7.4",
                 "psr/simple-cache": "^1.0"
             },
             "replace": {
@@ -40,10 +39,10 @@
                 "mikey179/vfsstream": "^1.6",
                 "natxet/cssmin": "^3.0",
                 "patchwork/jsqueeze": "^2.0",
-                "phpunit/phpunit": "^8.3",
+                "phpunit/phpunit": "^9.5",
                 "ptachoire/cssembed": "^1.0",
                 "smarty/smarty": "^3.1",
-                "twig/twig": "^2.5"
+                "twig/twig": "^3.1"
             },
             "suggest": {
                 "kriswallsmith/assetic": "^1.4",
@@ -54,12 +53,12 @@
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "Dframe\\": "src"
-                },
                 "files": [
                     "src/Functions.php"
-                ]
+                ],
+                "psr-4": {
+                    "Dframe\\": "src"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -82,9 +81,9 @@
             ],
             "support": {
                 "issues": "https://github.com/dframe/dframe/issues",
-                "source": "https://github.com/dframe/dframe/tree/v4.1.5"
+                "source": "https://github.com/dframe/dframe/tree/v4.2"
             },
-            "time": "2020-11-13T13:50:13+00:00"
+            "time": "2021-03-19T11:33:17+00:00"
         },
         {
             "name": "psr/simple-cache",
@@ -139,21 +138,22 @@
         },
         {
             "name": "pwpf/pwpf",
-            "version": "v1.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pwpf/pwpf.git",
-                "reference": "ba9deff79ba210cc7c4b30ffaddc10dbc113f26e"
+                "reference": "2a6e2ad2489e3657dd71dbd41a6964b98dbed259"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pwpf/pwpf/zipball/ba9deff79ba210cc7c4b30ffaddc10dbc113f26e",
-                "reference": "ba9deff79ba210cc7c4b30ffaddc10dbc113f26e",
+                "url": "https://api.github.com/repos/pwpf/pwpf/zipball/2a6e2ad2489e3657dd71dbd41a6964b98dbed259",
+                "reference": "2a6e2ad2489e3657dd71dbd41a6964b98dbed259",
                 "shasum": ""
             },
             "require": {
-                "dframe/dframe": "^4.1"
+                "dframe/dframe": "^4.2"
             },
+            "default-branch": true,
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -168,14 +168,17 @@
             "description": "Plugin WordPress Framework",
             "support": {
                 "issues": "https://github.com/pwpf/pwpf/issues",
-                "source": "https://github.com/pwpf/pwpf/tree/v1.0.0"
+                "source": "https://github.com/pwpf/pwpf/tree/master"
             },
-            "time": "2021-02-20T13:18:26+00:00"
+            "time": "2022-10-18T12:15:04+00:00"
         }
     ],
+    "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "pwpf/pwpf": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],

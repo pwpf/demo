@@ -21,8 +21,6 @@
 use Plugin_Name\App\Activator;
 use Plugin_Name\App\Deactivate;
 use Plugin_Name\App\Update;
-use Plugin_Name\Bootstrap;
-use Plugin_Name\Includes\Plugin_Name;
 use Plugin_Name\Includes\RequirementsChecker;
 
 use const Plugin_Name\MAIN_PATH;
@@ -66,31 +64,24 @@ try {
 }
 
 
+if (!function_exists('dieTriggerError')) {
+    function dieTriggerError($e)
+    {
+        add_action('get_header', function () use ($e) {
+            if (is_user_logged_in()) {
+                wp_die($e);
+            }
+
+            wp_die(
+                '<h1>There is a problem with website.</h1><br />We got the information and are already on it. Please check back later.'
+            );
+        });
+    }
+}
+
+
 try {
-    /**
-     * Begins execution of the plugin.
-     *
-     * Since everything within the plugin is registered via hooks,
-     * then kicking off the plugin from this point in the file does
-     * not affect the page life cycle.
-     *
-     * @since    1.0.0
-     */
-    $routerClassName = apply_filters('plugin_name_router_class_name', '\Plugin_NameVendor\PWPF\Routing\Router');
-    $routes = apply_filters(
-        'plugin_name_routes_file',
-        plugin_dir_path(
-            __FILE__
-        ) . 'app' . DIRECTORY_SEPARATOR . 'Config' . DIRECTORY_SEPARATOR . 'routes.php'
-    );
-
-
-    register_activation_hook(MAIN_PATH . 'plugin-name.php', [new Activator(), 'activate']);
-    register_deactivation_hook(MAIN_PATH . 'plugin-name.php', [new Deactivate(), 'deactivate']);
-    add_action('upgrader_process_complete', [new Update(), 'update'], 10, 2);
-
-    $app = new Plugin_Name($routerClassName, $routes, Bootstrap::class);
-    $app->run();
-} catch (\Exception $e) {
-    return false;
+    $app = new \Plugin_Name\Includes\Plugin_Name::getPluginName();
+} catch (Throwable $e) {
+    dieTriggerError($e);
 }

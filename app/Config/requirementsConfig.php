@@ -7,7 +7,7 @@
 
 return [
 
-    'minPhpVersion' => '7.0', // Minimum PHP Version.
+    'minPhpVersion' => '7.3', // Minimum PHP Version.
 
     'minWpVersion' => '4.8',  // Minimum WordPress Version.
 

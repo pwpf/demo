@@ -21,9 +21,9 @@
         ]
     },
     "require": {
+        "pwpf/pwpf": "dev-master"
     },
     "require-dev": {
-        "pwpf/pwpf": "^v1.0",
         "php": ">=7.3",
         "ext-json": "*"
     },
